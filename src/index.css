@@ -221,3 +221,29 @@ body:has(.card[data-color="green"]:hover) {
   /* Optional: Adjust for more control over sparkle timing */
   animation-delay: calc(0.2s * var(--i));
 }
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+    color: #FFFFFF; /* Bright white */
+  }
+  25% {
+    transform: scale(1.1);
+    color: #ffd200; /* Bright yellow */
+  }
+  50% {
+    transform: scale(1.2);
+    color: #f7971e; /* Bright orange */
+  }
+  75% {
+    transform: scale(1.1);
+    color: #ffd200; /* Bright yellow */
+  }
+  100% {
+    transform: scale(1);
+    color: #FFFFFF; /* Bright white */
+  }
+}
+
+.pulsating-as {
+  animation: pulsate 5s infinite; /* Slower pulsation */
+}

@@ -6,7 +6,6 @@ import Education from './Education';
 import Skills from './Skills';
 import Research from './Research';
 import Experience from './Experience';
-import AcademicProjects from './AcademicProjects';
 
 export {
   Home,
@@ -16,6 +15,5 @@ export {
   Education,
   Skills,
   Research,
-  Experience,
-  AcademicProjects
+  Experience
 };

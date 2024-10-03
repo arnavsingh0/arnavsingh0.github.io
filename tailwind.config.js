@@ -8,14 +8,14 @@ export default {
     extend: {
       colors: {
         gray: {
-          200: "#D5DAE1"
+          200: "#D5DAE1",
         },
         black: {
           DEFAULT: "#000",
-          500: "#1D2235"
+          500: "#1D2235",
         },
         blue: {
-          500: "#2b77e7"
+          500: "#2b77e7",
         },
         // Add galaxy-themed colors here
         'deep-space-blue': '#1a1a2e', // Deep Space Blue
@@ -29,15 +29,28 @@ export default {
         'meteorite-grey': '#606060',
         'cosmic-coral': '#ff6f61',
         'violet-nebula': '#9b59b6',
-        'celestial-teal': '#009688'
+        'celestial-teal': '#009688',
       },
       fontFamily: {
         worksans: ["Work Sans", "sans-serif"],
-        poppins: ['Poppins', "sans-serif"]
+        poppins: ['Poppins', "sans-serif"],
+        orbitron: ['Orbitron', 'sans-serif'], // New space-themed font
+      },
+      backgroundImage: {
+        // Background for space-themed pages with stars
+        'space-stars': "url('/src/assets/backgrounds/space-stars.png')",
+      },
+      backgroundSize: {
+        '50%': '50%',
+        '100%': '100%',
+        '200%': '200%',
       },
       boxShadow: {
-        card: '0px 1px 2px 0px rgba(0, 0, 0, 0.05)'
-      }
+        card: '0px 1px 2px 0px rgba(0, 0, 0, 0.05)',
+      },
+      animation: {
+        'slow-pulse': 'pulse 5s ease-in-out infinite', // Slower pulsating animation
+      },
     },
   },
   plugins: [],

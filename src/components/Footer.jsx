@@ -5,7 +5,7 @@ import { socialLinks } from "../constants";
 const Footer = () => {
   return (
     <footer className='footer font-poppins'>
-      <hr className='border-slate-500' />
+      <hr className='border-slate-900' />
 
       <div className='footer-container'>
         <p>

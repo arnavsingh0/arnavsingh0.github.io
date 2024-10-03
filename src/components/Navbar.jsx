@@ -2,33 +2,34 @@ import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <header className='header flex justify-between items-center'>
+    <header className="header flex flex-col fixed top-0 right-0 h-full">
       <NavLink
-        to='/'
+        to="/"
         className={({ isActive }) =>
-          isActive ? 'text-starry-gold' : 'text-deep-space-blue hover:text-galaxy-purple'
+          isActive ? "text-starry-gold" : "text-deep-space-blue hover:text-galaxy-purple"
         }
       >
-        <h1 className='text-4xl font-bold transition duration-300 ml--2 ease-in-out pulsating-as'> {/* Add the pulsating class */}
+        <h1 className="text-4xl font-bold transition duration-300 ml--2 ease-in-out pulsating-as">
           AS
         </h1>
       </NavLink>
-      <nav className='flex ml-7 mt-7  text-lg gap-10 font-medium'>
-        {["about", "projects", "education", "skills", "research", "experience", "academic-projects", "contact"].map((link, index) => (
+      <nav className="flex flex-col mt-7 text-lg gap-5 font-medium">
+        {["about", "projects", "education", "skills", "research", "experience", "contact"].map((link, index) => (
           <NavLink
             key={index}
-            to={`/${link}`}
+            to={`/about#${link}`} // Ensure links point to the About page with section IDs
             className={({ isActive }) =>
               isActive
-                ? "text-blue-600"
-                : "text-white hover:text-blue-500 transition duration-300 ease-in-out"
+                ? "blue-gradient_text font-semibold drop-shadow"
+                : "text-white hover:blue-gradient_text font-semibold drop-shadow transition duration-300 ease-in-out"
             }
           >
-            {link.charAt(0).toUpperCase() + link.slice(1).replace(/-/g, ' ')}
+            {link.charAt(0).toUpperCase() + link.slice(1).replace(/-/g, " ")}
           </NavLink>
         ))}
       </nav>
     </header>
   );
 };
+
 export default Navbar;

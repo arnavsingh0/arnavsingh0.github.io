@@ -5,7 +5,7 @@ import { OrbitControls } from "@react-three/drei"; // Import OrbitControls
 import lohengrin from "../assets/Lohengrin.mp3";
 import { HomeInfo, Loader } from "../components";
 import { soundoff, soundon } from "../assets/icons";
-import { Galaxy } from "../models"; // Import Galaxy here
+import { Galaxy } from "../models"; // Importing Galaxy here
 
 const Home = () => {
   const audioRef = useRef(new Audio(lohengrin));
@@ -36,7 +36,7 @@ const Home = () => {
         className={`w-full h-screen bg-transparent ${
           isRotating ? "cursor-grabbing" : "cursor-grab"
         }`}
-        camera={{ near: 0.1, far: 1000 }}
+        camera={{ position: [-5, -8, 10], near: 0.1, far: 1000 }} // Top and side view
         style={{ background: 'black' }} // Set black background
       >
         <Suspense fallback={<Loader />}>
@@ -65,7 +65,10 @@ const Home = () => {
           />
           
           {/* Add OrbitControls to the Canvas */}
-          <OrbitControls />
+          <OrbitControls 
+            enableZoom={false} // Optional: Disable zoom if desired
+            rotateSpeed={2}    // Increase rotation speed
+          />
         </Suspense>
       </Canvas>
 

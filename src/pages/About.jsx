@@ -4,10 +4,37 @@ import Skills from "./Skills";
 import Projects from "./Projects";
 import Research from "./Research";
 import Experience from "./Experience";
+import { useEffect } from "react";
 
 const About = () => {
+  useEffect(() => {
+    const sections = document.querySelectorAll("section");
+    const options = {
+      threshold: 0.6, // Adjust this to detect when 60% of the section is visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const link = document.querySelector(`a[href="#${entry.target.id}"]`);
+        if (entry.isIntersecting) {
+          link?.classList.add("active-link");
+        } else {
+          link?.classList.remove("active-link");
+        }
+      });
+    }, options);
+
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, []);
+
   return (
-    <section id="about" className="max-container overflow-y-auto h-screen px-4 py-10">
+    <div className="max-container overflow-y-auto h-screen px-4 py-10">
       {/* Title Section */}
       <h1 className="text-4xl font-bold text-white text-center">
         Hello, I'm <span className="blue-gradient_text font-semibold drop-shadow">Arnav Singh</span> 👋
@@ -22,39 +49,39 @@ const About = () => {
       </div>
 
       {/* Work Experience Section */}
-      <div className="py-10">
+      <section id="experience" className="py-10">
         <h3 className="text-3xl text-sky-400 font-semibold mb-4">Work Experience</h3>
         <Experience />
-      </div>
+      </section>
 
       {/* Skills Section */}
-      <div className="py-10">
+      <section id="skills" className="py-10">
         <h3 className="text-3xl text-sky-400 font-semibold mb-4">Skills</h3>
         <Skills />
-      </div>
+      </section>
 
       {/* Projects Section */}
-      <div className="py-10">
+      <section id="projects" className="py-10">
         <h3 className="text-3xl text-sky-400 font-semibold mb-4">Projects</h3>
         <Projects />
-      </div>
+      </section>
 
       {/* Research Section */}
-      <div className="py-10">
+      <section id="research" className="py-10">
         <h3 className="text-3xl text-sky-400 font-semibold mb-4">Research</h3>
         <Research />
-      </div>
+      </section>
 
       {/* Education Section */}
-      <div className="py-10">
+      <section id="education" className="py-10">
         <h3 className="text-3xl text-sky-400 font-semibold mb-4">Education</h3>
         <Education />
-      </div>
+      </section>
 
       {/* Call-to-Action (CTA) */}
       <hr className="border-slate-200 my-8" />
       <CTA />
-    </section>
+    </div>
   );
 };
 

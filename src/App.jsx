@@ -44,6 +44,7 @@ const App = () => {
       <Router>
         <AppContent />
       </Router>
+      <div id="custom-cursor"></div>
     </main>
   );
 };

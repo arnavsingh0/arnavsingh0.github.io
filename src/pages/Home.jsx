@@ -77,8 +77,10 @@ const Home = () => {
           src={!isPlayingMusic ? soundoff : soundon}
           alt='jukebox'
           onClick={() => setIsPlayingMusic(!isPlayingMusic)}
-          className='w-10 h-10 cursor-pointer object-contain'
-        />
+          className='w-10 h-10 cursor-pointer object-contain'/>
+        <h1>
+          ^ song
+        </h1>
       </div>
     </section>
   );

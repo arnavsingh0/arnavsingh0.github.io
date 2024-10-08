@@ -1,38 +1,59 @@
-/* Importing Orbitron for a space-themed look */
-@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+/* Importing Barlow and other fonts */
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Orbitron:wght@400;500;700;900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Root CSS Variables for both themes */
 :root {
   --blue-rgb: 237 245 255;
   --green-rgb: 125 161 35;
-  --deep-space-blue: #1a1a2e; /* Deep Space Blue */
-  --galaxy-purple: #6a0572; /* Galaxy Purple */
-  --cosmic-teal: #2ed2c6; /* Cosmic Teal */
-
-  /* Additional Colors */
-  --midnight-black: #2c2c2c; /* Midnight Black */
-  --space-gray: #4b4b4b; /* Space Gray */
-  --stellar-white: #f0f0f0; /* Stellar White */
-  --nova-orange: #ff6a13; /* Nova Orange */
-  --radiant-yellow: #ffcc00; /* Radiant Yellow */
-  --starry-gold: #ffcc00; /* Example Color */
+  --deep-space-blue: #1a1a2e;
+  --galaxy-purple: #6a0572;
+  --cosmic-teal: #2ed2c6;
+  --midnight-black: #2c2c2c;
+  --space-gray: #4b4b4b;
+  --stellar-white: #f0f0f0;
+  --nova-orange: #ff6a13;
+  --radiant-yellow: #ffcc00;
+  --starry-gold: #ffcc00;
 }
 
-/* Setting Orbitron as the main font for a more spacey look */
+/* Light Mode */
 body {
-  font-family: "Montserrat", sans-serif; /* Set Montserrat for body text */
-  color: white;
+  font-family: "Barlow", sans-serif;
+  color: #333;
+  background-color: var(--stellar-white);
+  background: url('/src/assets/backgrounds/light-sky.jpg') repeat;
+  background-size: cover;
+  overflow: hidden;
+  animation: twinkling-stars 2000s linear infinite;
+  background-attachment: fixed;
+}
+
+h1, h2, h3, p {
+  font-family: "Barlow", sans-serif;
+  color: white
+}
+
+input, textarea {
+  font-family: "Poppins", sans-serif;
+}
+
+/* Dark Mode */
+.dark body {
+  background-color: var(--midnight-black);
   background: url('/src/assets/backgrounds/starry-sky.png') repeat;
   background-size: cover;
-  animation: twinkling-stars 2000s linear infinite; /* Slow star motion */
-  background-attachment: fixed; /* Keeps background fixed while scrolling */
-  overflow: hidden;
+  color: white;
 }
-/* Starry background effect for pages */
+
+.dark h1, .dark h3 {
+  color: white;
+}
+
+/* Starry background animation */
 @keyframes twinkling-stars {
   from {
     background-position: 0 0;
@@ -44,7 +65,7 @@ body {
 
 .star-background {
   background: url('/src/assets/backgrounds/starry-sky.png') repeat;
-  animation: twinkling-stars 200s linear infinite; /* Adds slow star motion */
+  animation: twinkling-stars 200s linear infinite;
   background-size: cover;
 }
 
@@ -91,6 +112,10 @@ body:has(.card[data-color="green"]:hover) {
     background: rgba(255, 255, 255, 0.1);
   }
 
+  .dark .header {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
   .footer {
     @apply max-w-5xl mx-auto sm:px-16 pb-6 px-8 flex flex-col gap-7;
     background-color: var(--deep-space-blue);
@@ -118,6 +143,7 @@ body:has(.card[data-color="green"]:hover) {
   }
 }
 
+/* Glassmorphism Effect */
 .glassmorphism {
   background: rgba(8, 116, 239, 0.07);
   backdrop-filter: blur(10px);
@@ -133,59 +159,60 @@ body:has(.card[data-color="green"]:hover) {
     0px 1.5px 4px -1px rgba(67, 83, 255, 0.2);
 }
 
-/* Adding Starry Background */
-.space-page {
-  background: url('/src/assets/backgrounds/starry-sky.png') repeat;
-  background-size: cover;
-}
-/* styles.css or your main CSS file */
+/* Dark/Light Mode Customization */
 html, body {
   height: 100%;
   margin: 0;
-  overflow-x: hidden; /* Prevent horizontal overflow */
+  overflow-x: hidden;
 }
 
 .page {
-  min-height: 100vh; /* Ensure each page takes at least the full viewport height */
-  padding: 20px; /* Add padding to prevent content from touching the edges */
-  box-sizing: border-box; /* Ensure padding is included in width and height */
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-html{
+html {
   scroll-behavior: smooth;
 }
 
+/* Custom Cursor */
 #custom-cursor {
   position: fixed;
-  width: 20px; /* Circle diameter */
-  height: 20px; /* Circle diameter */
-  border-radius: 50%; /* Make it a circle */
-  background-color: rgba(255, 255, 255, 0.8); /* Circle color */
-  pointer-events: none; /* Ignore mouse events */
-  transform: translate(-50%, -50%); /* Center the cursor */
-  transition: background-color 0.3s ease; /* Smooth color change */
-}
-.custom-cursor {
-  position: fixed;
-  width: 20px; /* Adjust size as needed */
-  height: 20px; /* Adjust size as needed */
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 100%); /* Gradient effect */
-  border-radius: 50%; /* Circular shape */
-  pointer-events: none; /* Prevent cursor from interfering with other elements */
-  transition: transform 0.1s ease, opacity 0.1s ease;
-  mix-blend-mode: difference; /* Blend with the background */
-  opacity: 0.8; /* Adjust transparency as needed */
-  z-index: 9999; /* Ensure it is above other elements */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.3s ease;
 }
 
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+  mix-blend-mode: difference;
+  opacity: 0.8;
+  z-index: 9999;
+}
 
 .cursor-trail {
   position: fixed;
-  width: 10px; /* Trail diameter */
-  height: 10px; /* Trail diameter */
-  border-radius: 50%; /* Make it a circle */
-  background-color: rgba(255, 255, 0, 0.7); /* Trail color */
-  pointer-events: none; /* Ignore mouse events */
-  transform: translate(-50%, -50%); /* Center the cursor */
-  transition: opacity 0.5s ease; /* Smooth fade out */
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 0, 0.7);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.5s ease;
+}
+
+.active-link {
+  color: blue;
+  font-weight: bold;
 }

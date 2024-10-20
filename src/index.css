@@ -1,5 +1,5 @@
-/* Importing Barlow and other fonts */
-@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Orbitron:wght@400;500;700;900&display=swap");
+/* Importing Roboto and other fonts */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -22,10 +22,9 @@
 
 /* Light Mode */
 body {
-  font-family: "Barlow", sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #333;
   background-color: var(--stellar-white);
-  background: url('/src/assets/backgrounds/light-sky.jpg') repeat;
   background-size: cover;
   overflow: hidden;
   animation: twinkling-stars 2000s linear infinite;
@@ -33,18 +32,17 @@ body {
 }
 
 h1, h2, h3, p {
-  font-family: "Barlow", sans-serif;
-  color: white
+  font-family: "Roboto", sans-serif;
+  color: white;
 }
 
 input, textarea {
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 /* Dark Mode */
 .dark body {
-  background-color: var(--midnight-black);
-  background: url('/src/assets/backgrounds/starry-sky.png') repeat;
+  background-color: var(--deep-space-blue);
   background-size: cover;
   color: white;
 }
@@ -63,19 +61,23 @@ input, textarea {
   }
 }
 
-.star-background {
-  background: url('/src/assets/backgrounds/starry-sky.png') repeat;
-  animation: twinkling-stars 200s linear infinite;
-  background-size: cover;
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 0.81;
+  }
 }
 
-body:has(.card[data-color="blue"]:hover) {
-  background-color: rgb(var(--blue-rgb) / 25%);
+.animate-slideInRight {
+  animation: slideInRight 1s forwards;
 }
 
-body:has(.card[data-color="green"]:hover) {
-  background-color: rgb(var(--green-rgb) / 25%);
-}
+
+/* Additional CSS for Tailwind components, glassmorphism, etc. */
 
 /* Tailwind Utility Layer Modifications */
 @layer utilities {
@@ -84,11 +86,11 @@ body:has(.card[data-color="green"]:hover) {
   }
 
   .head-text {
-    @apply sm:text-5xl text-3xl font-semibold sm:leading-snug font-poppins text-cosmic-teal;
+    @apply sm:text-5xl text-3xl font-semibold sm:leading-snug font-roboto text-cosmic-teal;
   }
 
   .subhead-text {
-    @apply font-semibold sm:text-3xl text-xl relative font-poppins text-galaxy-purple;
+    @apply font-semibold sm:text-3xl text-xl relative font-roboto text-galaxy-purple;
   }
 
   .blue-gradient_text {

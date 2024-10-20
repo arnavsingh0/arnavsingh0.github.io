@@ -42,7 +42,7 @@ export function Galaxy(props) {
 
   useFrame(({ clock }) => {
     ref.current.rotation.z = clock.getElapsedTime() / 5;
-    ref.current.scale.setScalar(Math.sin(clock.getElapsedTime() / 2) + 1.5);
+    ref.current.scale.setScalar(Math.sin(clock.getElapsedTime() / 8) + 2);  // Frequency and amplitude of the scale, i can set to whatever i want
   });
 
   return (

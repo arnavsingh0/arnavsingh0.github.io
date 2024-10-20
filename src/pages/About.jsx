@@ -1,9 +1,10 @@
-import { CTA } from "../components";
+import { CTA, Navbar } from "../components";
 import Education from "./Education";
 import Skills from "./Skills";
 import Projects from "./Projects";
 import Research from "./Research";
 import Experience from "./Experience";
+import Contact from "./Contact";
 import { useEffect } from "react";
 
 const About = () => {
@@ -35,18 +36,24 @@ const About = () => {
 
   return (
     <div className="max-container overflow-y-auto h-screen px-4 py-10">
+      {/* Navbar */}
+      <Navbar />
+
       {/* Title Section */}
-      <h1 className="text-4xl font-bold text-white text-center">
-        Hello, I'm <span className="blue-gradient_text font-semibold drop-shadow">Arnav Singh</span> 👋
-      </h1>
-      <div className="mt-5 text-center text-white">
-        <p className="text-lg">
-          Welcome! My name is Arnav Singh, a Junior at Dartmouth College 🌲, double-majoring in Physics and Computer Science with a Mathematics modification.
-        </p>
-        <p className="text-lg">
-          I'm passionate about space physics, aerospace research, and applying machine learning to solve complex scientific problems.
-        </p>
-      </div>
+      <section id="about" className="py-10">
+        <h1 className="text-4xl font-bold text-white text-center">
+          Hello, I'm <span className="blue-gradient_text font-semibold drop-shadow">Arnav Singh</span> 👋
+        </h1>
+        <div className="mt-5 text-center text-white">
+          <p className="text-lg">
+            Welcome! I am currenlty a Junior at Dartmouth College 🌲, double-majoring in Physics and Computer Science & Math (CS % Math). I was born in Singapore, but quickly moved to Ireland when I was 3. 
+            I lived in Limerick Country (like the poem) until I was 8. Since then, I have lived in the United States, specifically in the great land of Upstate New York.
+          </p>
+          <p className="text-lg">
+            I'm passionate about applying machine learning to solve complex scientific problems, space physics, and aerospace research.
+          </p>
+        </div>
+      </section>
 
       {/* Work Experience Section */}
       <section id="experience" className="py-10">
@@ -78,9 +85,9 @@ const About = () => {
         <Education />
       </section>
 
-      {/* Call-to-Action (CTA) */}
+      {/* Contact */}
       <hr className="border-slate-200 my-8" />
-      <CTA />
+      <Contact />
     </div>
   );
 };

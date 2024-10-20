@@ -1,10 +1,7 @@
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="48" height="48" rx="8.88889" fill="white"/>
-<path d="M11.26 30H7.9L13.76 16.6H18.04L23.94 30H20.5L19.24 27.04H12.54L11.26 30ZM14.96 21.42L13.7 24.34H18.08L16.82 21.42L16 19.34H15.78L14.96 21.42ZM27.6398 30H24.6398V16.6H27.6398V21.92H34.6398V16.6H37.6398V30H34.6398V24.62H27.6398V30Z" fill="url(#paint0_linear_1545_39)"/>
-<defs>
-<linearGradient id="paint0_linear_1545_39" x1="8" y1="35.5" x2="38.0109" y2="10.5484" gradientUnits="userSpaceOnUse">
-<stop stop-color="#989FFF"/>
-<stop offset="1" stop-color="#29A2FF"/>
-</linearGradient>
-</defs>
-</svg>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="SVGRepo_iconCarrier"> <path d="M42 43V6C42 4.89543 41.1046 4 40 4H33C31.8954 4 31 4.89543 31 6V24" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/> <path d="M24 22C14.0589 22 6 30.0589 6 40V44H42V40C42 30.0589 33.9411 22 24 22Z" stroke="#ffffff" stroke-width="4"/> <path d="M8 31V8" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/> <path d="M16 24L16 14" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/> <path d="M31 14L42 14" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/> <path d="M17 42C17 41 17 40.0237 17 39C17 29.6112 20.134 22 24 22C27.866 22 31 29.6112 31 39C31 40.3778 31 41 31 42" stroke="#ffffff" stroke-width="4"/> <path d="M4 44H44" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/> <path d="M7 35C7 35 17.3496 34 24 34C30.6504 34 41 35 41 35" stroke="#ffffff" stroke-width="4"/> </g>
+</svg>

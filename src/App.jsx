@@ -24,13 +24,13 @@ const AppContent = () => {
       <div className="flex-grow"> {/* Allows the content to grow and push the footer down */}
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
+          {/* <Route path='/about' element={<About />} />
           <Route path='/projects' element={<Projects />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/education' element={<Education />} />
           <Route path='/skills' element={<Skills />} />
           <Route path='/research' element={<Research />} />
-          <Route path='/experience' element={<Experience />} />
+          <Route path='/experience' element={<Experience />} /> */}
         </Routes>
       </div>
       {location.pathname !== "/" && <Footer />} {/* Only show footer if not on home page */}
@@ -40,7 +40,7 @@ const AppContent = () => {
 
 const App = () => {
   return (
-    <main className='bg-slate-300/20'>
+    <main className='bg-black'>
       <Router>
         <AppContent />
       </Router>

@@ -1,8 +1,8 @@
-import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   // Toggle dark mode
   const toggleDarkMode = () => {
@@ -23,35 +23,63 @@ const Navbar = () => {
     localStorage.setItem("theme", isDarkMode ? "dark" : "light");
   }, [isDarkMode]);
 
+  // Intersection Observer for tracking sections
+  useEffect(() => {
+    const sections = document.querySelectorAll("section");
+    const observerOptions = {
+      threshold: 0.6, // When 60% of the section is in view
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id); // Set active section ID
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, []);
+
   return (
-    <header className="header fixed top-0 left-0 w-full bg-gradient-to-br from-gray-800 to-black shadow-lg z-50">
+    <header className="fixed top-0 left-0 w-full bg-black shadow-lg z-50">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Logo/Brand */}
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive ? "text-starry-gold" : "text-deep-space-blue hover:text-galaxy-purple"
-          }
-        >
-          <h1 className="text-4xl font-bold transition duration-300 ease-in-out pulsating-as">
-            AS
-          </h1>
-        </NavLink>
+        
+        {/* Logo */}
+        <a href="/" className="flex items-center flex-shrink-0">
+          <img
+            src="src/assets/images/logo.svg" // Path to your favicon or logo
+            alt="Logo"
+            className="w-10 h-10" // Adjust size as needed
+          />
+          <span className="text-xl font-bold text-white ml-3">AS</span>
+        </a>
 
         {/* Navigation Links */}
-        <nav className="flex space-x-6 text-lg font-medium">
-        <a href="" className="nav-link text-white hover:blue-gradient_text font-semibold drop-shadow transition duration-300 ease-in-out">About</a>
-          <a href="#experience" className="nav-link text-white hover:blue-gradient_text font-semibold drop-shadow transition duration-300 ease-in-out">Experience</a>
-          <a href="#skills" className="nav-link text-white hover:blue-gradient_text font-semibold drop-shadow transition duration-300 ease-in-out">Skills</a>
-          <a href="#projects" className="nav-link text-white hover:blue-gradient_text font-semibold drop-shadow transition duration-300 ease-in-out">Projects</a>
-          <a href="#research" className="nav-link text-white hover:blue-gradient_text font-semibold drop-shadow transition duration-300 ease-in-out">Research</a>
-          <a href="#education" className="nav-link text-white hover:blue-gradient_text font-semibold drop-shadow transition duration-300 ease-in-out">Education</a>
+        <nav className="flex space-x-8 text-sm uppercase tracking-widest font-medium">
+          {["about", "experience", "skills", "projects", "research", "education"].map((link) => (
+            <a
+              key={link}
+              href={`#${link}`}
+              className={
+                activeSection === link
+                  ? "text-white border-b-2 border-white pb-1 transition-all duration-300"
+                  : "text-gray-400 hover:text-white hover:border-b-2 hover:border-white pb-1 transition-all duration-300"
+              }
+            >
+              {link.charAt(0).toUpperCase() + link.slice(1)}
+            </a>
+          ))}
         </nav>
 
-        {/* Day/Night Mode Toggle Button */}
+        {/* Dark Mode Toggle */}
         <button
           onClick={toggleDarkMode}
-          className="bg-gray-200 dark:bg-gray-700 p-2 rounded-full shadow transition duration-300"
+          className="ml-4 bg-gray-200 dark:bg-gray-700 p-2 rounded-full shadow transition duration-300 flex items-center"
           aria-label="Toggle Day/Night Mode"
         >
           {isDarkMode ? (

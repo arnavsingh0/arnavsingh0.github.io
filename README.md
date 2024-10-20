@@ -16,7 +16,7 @@ The portfolio includes:
 
 ## 🌐 Live Website
 
-Visit my portfolio at: [**arnavsingh.github.io**](https://github.com/arnavsingh0/arnavsingh0.github.io)
+Visit my portfolio at: [**arnavsingh.github.io**](https:arnavsingh0.github.io)
 
 ## 🛠️ Tech Stack
 
@@ -25,21 +25,7 @@ This portfolio was built using:
 - **Node.js**: For backend logic and server-side functionality.
 - **HTML/CSS**: For structuring and styling the content.
 - **JavaScript**: For interaction and logic.
-- **GitHub Pages**: For hosting the website.
-
-## 🚀 Projects Featured
-
-### 1. **Physics Simulations**
-- **Magnetosphere Modeling**: Visualizing the Earth's magnetosphere with B6 Open Close Boundary.
-- **Quantum Mechanics**: 3D visualizations of wave functions and probability densities.
-
-### 2. **Data Science & Machine Learning**
-- **Olympic Medal Prediction**: Predicting athlete performance based on physical and country-specific data.
-- **Health Bot**: A chatbot project using AI for health symptom checks and suggestions.
-
-### 3. **Internships & Research**
-- **Alton Aviation**: Research on aviation safety and AI-driven optimizations.
-- **Lawrence Livermore National Lab**: Laser and nuclear research intern projects.
+- **GitHub Pages**: For hosting the website. 🙏
 
 ## 📜 How to Navigate
 
@@ -54,5 +40,4 @@ If you'd like to clone and run the portfolio locally:
 1. Clone the repository:
    ```bash
    git clone https://github.com/arnavsingh0/3d-portfolio.git
-
-Credits: inspired by Adrian Hajdin
+   ```

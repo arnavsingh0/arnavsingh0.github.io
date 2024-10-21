@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { HomeInfo, Loader } from "../components";
 const Navbar = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -8,6 +8,11 @@ const Navbar = () => {
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
     document.documentElement.classList.toggle("dark", !isDarkMode);
+  };
+
+  const handleClick = () => {
+    setIsAnimating(false); // Start the animation, hide the content
+    triggerUnderlayAnimation(); // Call the animation in Home.jsx
   };
 
   // Persist the theme preference across reloads
@@ -61,7 +66,7 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <nav className="flex space-x-8 text-sm uppercase tracking-widest font-medium">
-          {["about", "experience", "skills", "projects", "research", "education"].map((link) => (
+          {["about", "education", "skills", "research", "experience", "projects", "contact"].map((link) => (
             <a
               key={link}
               href={`#${link}`}

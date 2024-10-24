@@ -5,6 +5,7 @@ import Projects from "./Projects";
 import Research from "./Research";
 import Experience from "./Experience";
 import Contact from "./Contact";
+import myimage from "../assets/images/myimage.png";
 import { useEffect } from "react";
 
 const About = () => {
@@ -66,7 +67,7 @@ const About = () => {
     <div className="flex justify-center mt-12">
       <div className="relative">
         <img
-          src="src/assets/images/myimage.png"
+          src={myimage}
           alt="Arnav Singh"
           className="w-40 h-40 md:w-60 md:h-60 rounded-full border-4 border-indigo-500 shadow-lg transform hover:scale-110 transition-transform duration-300"
         />

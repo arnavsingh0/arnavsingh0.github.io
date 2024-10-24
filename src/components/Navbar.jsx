@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { HomeInfo, Loader } from "../components";
+import logo from "../assets/images/logo.svg";
 const Navbar = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -57,7 +58,7 @@ const Navbar = () => {
         {/* Logo */}
         <a href="/" className="flex items-center flex-shrink-0">
           <img
-            src="src/assets/images/logo.svg" // Path to your favicon or logo
+            src={logo} // Path to your favicon or logo
             alt="Logo"
             className="w-10 h-10" // Adjust size as needed
           />

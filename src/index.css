@@ -1,220 +1,114 @@
-/* Importing Roboto and other fonts */
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+/* Importing Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Root CSS Variables for both themes */
+/* Root CSS Variables */
 :root {
-  --blue-rgb: 237 245 255;
-  --green-rgb: 125 161 35;
-  --deep-space-blue: #1a1a2e;
-  --galaxy-purple: #6a0572;
-  --cosmic-teal: #2ed2c6;
-  --midnight-black: #2c2c2c;
-  --space-gray: #4b4b4b;
-  --stellar-white: #f0f0f0;
-  --nova-orange: #ff6a13;
-  --radiant-yellow: #ffcc00;
-  --starry-gold: #ffcc00;
+  /* Premium Dark Theme Palette (Vercel/Tesla inspired) */
+  --bg-primary: #000000;
+  --bg-secondary: #111111;
+  --text-primary: #ffffff;
+  --text-secondary: #888888;
+  --accent-blue: #3291ff;
+  /* Vercel Blue */
+  --accent-purple: #7928ca;
+  /* Vercel Purple */
+  --border-color: #333333;
 }
 
-/* Light Mode */
 body {
-  font-family: "Roboto", sans-serif;
-  color: #333;
-  background-color: var(--stellar-white);
-  background-size: cover;
-  overflow: hidden;
-  animation: twinkling-stars 2000s linear infinite;
-  background-attachment: fixed;
-}
-
-h1, h2, h3, p {
-  font-family: "Roboto", sans-serif;
-  color: white;
-}
-
-input, textarea {
-  font-family: "Roboto", sans-serif;
-}
-
-/* Dark Mode */
-.dark body {
-  background-color: var(--deep-space-blue);
-  background-size: cover;
-  color: white;
-}
-
-.dark h1, .dark h3 {
-  color: white;
-}
-
-/* Starry background animation */
-@keyframes twinkling-stars {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -10000px 5000px;
-  }
-}
-
-@keyframes slideInRight {
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 0.81;
-  }
-}
-
-.animate-slideInRight {
-  animation: slideInRight 1s forwards;
-}
-
-
-/* Additional CSS for Tailwind components, glassmorphism, etc. */
-
-/* Tailwind Utility Layer Modifications */
-@layer utilities {
-  .max-container {
-    @apply max-w-5xl mx-auto sm:p-16 pb-12 !pt-[126px] px-8 min-h-[calc(100vh-80px)];
-  }
-
-  .head-text {
-    @apply sm:text-5xl text-3xl font-semibold sm:leading-snug font-roboto text-cosmic-teal;
-  }
-
-  .subhead-text {
-    @apply font-semibold sm:text-3xl text-xl relative font-roboto text-galaxy-purple;
-  }
-
-  .blue-gradient_text {
-    @apply bg-gradient-to-r from-[#00c6ff] to-[#0072ff] bg-clip-text text-transparent;
-  }
-
-  .input {
-    @apply bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-2.5 font-normal shadow-card;
-  }
-
-  .textarea {
-    @apply block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-200 focus:ring-blue-500 focus:border-blue-500 mt-2.5 font-normal shadow-card;
-  }
-
-  .btn {
-    @apply text-white bg-gradient-to-r from-[#00c6ff] to-[#0072ff] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center;
-  }
-
-  .header {
-    @apply flex justify-between items-center sm:px-16 px-8 py-4 max-w-5xl mx-auto absolute top-0 bg-transparent z-10 right-0 left-0;
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .dark .header {
-    background: rgba(0, 0, 0, 0.3);
-  }
-
-  .footer {
-    @apply max-w-5xl mx-auto sm:px-16 pb-6 px-8 flex flex-col gap-7;
-    background-color: var(--deep-space-blue);
-  }
-
-  .footer-container {
-    @apply flex flex-wrap gap-7 items-center justify-between;
-  }
-
-  .info-box {
-    @apply mx-5 relative flex text-white flex-col gap-3 max-w-2xl neo-brutalism-blue pt-4 pb-12 px-8;
-    background-color: var(--galaxy-purple);
-  }
-
-  .neo-btn {
-    @apply py-3 px-6 rounded-lg text-blue-500 text-center font-semibold sm:w-1/2 w-[90%] -bottom-5 absolute mx-auto right-0 left-0 flex justify-center items-center gap-3;
-  }
-
-  .cta {
-    @apply w-full flex items-center md:flex-row flex-col sm:mt-16 mt-8 gap-7;
-  }
-
-  .cta-text {
-    @apply text-black-500 font-extrabold flex-1 text-3xl max-md:text-center;
-  }
-}
-
-/* Glassmorphism Effect */
-.glassmorphism {
-  background: rgba(8, 116, 239, 0.07);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.logo {
-  border-radius: 8.889px;
-  background: #fff;
-  box-shadow: 0px 10px 35px -4px rgba(67, 83, 255, 0.15),
-    0px 1.5px 4px -1px rgba(67, 83, 255, 0.2);
-}
-
-/* Dark/Light Mode Customization */
-html, body {
-  height: 100%;
-  margin: 0;
+  font-family: "Inter", sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
-.page {
-  min-height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inter", sans-serif;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  /* Tight tracking for modern look */
 }
 
+p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom Cursor */
-#custom-cursor {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.8);
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: background-color 0.3s ease;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.custom-cursor {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 100%);
-  border-radius: 50%;
-  pointer-events: none;
-  transition: transform 0.1s ease, opacity 0.1s ease;
-  mix-blend-mode: difference;
-  opacity: 0.8;
-  z-index: 9999;
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
 }
 
-.cursor-trail {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 0, 0.7);
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.5s ease;
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
 }
 
-.active-link {
-  color: blue;
-  font-weight: bold;
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Tailwind Utility Layer Modifications */
+@layer utilities {
+  .max-container {
+    @apply max-w-7xl mx-auto sm:p-16 pb-12 px-8;
+  }
+
+  .head-text {
+    @apply text-5xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500;
+  }
+
+  .subhead-text {
+    @apply text-2xl font-semibold text-gray-400;
+  }
+
+  /* Premium Glassmorphism */
+  .glass-nav {
+    @apply backdrop-blur-md bg-black/50 border-b border-white/10;
+  }
+
+  .glass-panel {
+    @apply backdrop-blur-md bg-white/5 border border-white/10 rounded-xl hover:border-white/20 transition-colors duration-300;
+  }
+
+  .btn {
+    @apply text-white bg-white/10 hover:bg-white/20 font-medium rounded-full px-6 py-3 transition-all duration-300 border border-white/10;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-out forwards;
 }

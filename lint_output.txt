@@ -1,0 +1,49 @@
+
+> 3d-portfolio@0.0.0 lint
+> eslint . --ext js,jsx --report-unused-disable-directives
+
+
+/Users/beastxgamer/vcs/github.com/arnavsingh0/arnavsingh0.github.io/src/App.jsx
+   5:3  warning  'About' is defined but never used       no-unused-vars
+   6:3  warning  'Contact' is defined but never used     no-unused-vars
+   8:3  warning  'Projects' is defined but never used    no-unused-vars
+   9:3  warning  'Education' is defined but never used   no-unused-vars
+  10:3  warning  'Skills' is defined but never used      no-unused-vars
+  11:3  warning  'Research' is defined but never used    no-unused-vars
+  12:3  warning  'Experience' is defined but never used  no-unused-vars
+
+/Users/beastxgamer/vcs/github.com/arnavsingh0/arnavsingh0.github.io/src/components/Alert.jsx
+  1:18  error  'type' is missing in props validation  react/prop-types
+  1:24  error  'text' is missing in props validation  react/prop-types
+
+/Users/beastxgamer/vcs/github.com/arnavsingh0/arnavsingh0.github.io/src/components/CTA.jsx
+  17:16  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/beastxgamer/vcs/github.com/arnavsingh0/arnavsingh0.github.io/src/components/HomeInfo.jsx
+  3:21  error  'triggerOverlayAnimation' is missing in props validation  react/prop-types
+
+/Users/beastxgamer/vcs/github.com/arnavsingh0/arnavsingh0.github.io/src/components/Navbar.jsx
+   2:10  warning  'HomeInfo' is defined but never used              no-unused-vars
+   2:20  warning  'Loader' is defined but never used                no-unused-vars
+  14:9   warning  'handleClick' is assigned a value but never used  no-unused-vars
+  15:5   error    'setIsAnimating' is not defined                   no-undef
+  16:5   error    'triggerUnderlayAnimation' is not defined         no-undef
+
+/Users/beastxgamer/vcs/github.com/arnavsingh0/arnavsingh0.github.io/src/models/Galaxy.jsx
+  1:10  warning  'useEffect' is defined but never used  no-unused-vars
+
+/Users/beastxgamer/vcs/github.com/arnavsingh0/arnavsingh0.github.io/src/models/Rocket.jsx
+  9:8   warning  'React' is defined but never used   no-unused-vars
+  9:17  warning  'useRef' is defined but never used  no-unused-vars
+
+/Users/beastxgamer/vcs/github.com/arnavsingh0/arnavsingh0.github.io/src/pages/Contact.jsx
+  14:10  warning  'currentAnimation' is assigned a value but never used  no-unused-vars
+
+/Users/beastxgamer/vcs/github.com/arnavsingh0/arnavsingh0.github.io/src/pages/Education.jsx
+  1:8  warning  'React' is defined but never used  no-unused-vars
+
+/Users/beastxgamer/vcs/github.com/arnavsingh0/arnavsingh0.github.io/src/pages/Home.jsx
+  26:16  warning  The ref value 'audioRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'audioRef.current' to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps
+
+✖ 22 problems (5 errors, 17 warnings)
+

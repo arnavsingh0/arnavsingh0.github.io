@@ -1,15 +1,16 @@
-import { useEffect, useRef, useMemo } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useRef, useMemo, useEffect } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
 import { Points, useGLTF } from "@react-three/drei";
 import { EffectComposer, SelectiveBloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 
-import galaxyModel from "../assets/3d/galaxy.glb"; // Adjust the path as needed
+import galaxyModel from "../assets/3d/galaxy.glb";
 
-export function Galaxy(props) {
+export function Galaxy({ isRotating, setIsRotating, setCurrentStage, ...props }) {
   const ref = useRef();
   const galaxyCenterLightRef = useRef();
   const { nodes } = useGLTF(galaxyModel);
+  const { camera } = useThree();
 
   const [positions, colors] = useMemo(() => {
     nodes.Object_2.geometry.center();
@@ -40,9 +41,34 @@ export function Galaxy(props) {
     return [positions, colors];
   }, [nodes]);
 
-  useFrame(({ clock }) => {
-    ref.current.rotation.z = clock.getElapsedTime() / 5;
-    ref.current.scale.setScalar(Math.sin(clock.getElapsedTime() / 8) + 2);  // Frequency and amplitude of the scale, i can set to whatever i want
+  useFrame(() => {
+    if (!isRotating) {
+      // Slow rotation when not interacting
+      ref.current.rotation.y += 0.001;
+    }
+
+    // Calculate stage based on rotation
+    // We use the group's rotation if we were rotating the group, 
+    // but since we are using OrbitControls, we should check the camera angle relative to the center.
+    // However, to keep it simple and consistent with the requested "drag to explore" (which usually implies rotating the model),
+    // let's stick to the model rotation if we were doing that. 
+
+    // BUT, OrbitControls rotates the CAMERA.
+    // So let's calculate the angle based on camera position.
+
+    const angle = Math.atan2(camera.position.x, camera.position.z);
+    let normalizedAngle = (angle + Math.PI) / (2 * Math.PI); // 0 to 1
+
+    // Define stages based on angle segments
+    if (normalizedAngle >= 0 && normalizedAngle < 0.25) {
+      setCurrentStage(1);
+    } else if (normalizedAngle >= 0.25 && normalizedAngle < 0.5) {
+      setCurrentStage(2);
+    } else if (normalizedAngle >= 0.5 && normalizedAngle < 0.75) {
+      setCurrentStage(3);
+    } else if (normalizedAngle >= 0.75 && normalizedAngle <= 1) {
+      setCurrentStage(4);
+    }
   });
 
   return (
@@ -73,5 +99,3 @@ export function Galaxy(props) {
     </group>
   );
 }
-
-useGLTF.preload(galaxyModel);

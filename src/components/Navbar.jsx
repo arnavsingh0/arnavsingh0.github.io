@@ -1,45 +1,33 @@
 import { useState, useEffect } from "react";
-import { HomeInfo, Loader } from "../components";
-import logo from "../assets/images/logo.svg";
+
 const Navbar = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Toggle dark mode
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle("dark", !isDarkMode);
-  };
-
-  const handleClick = () => {
-    setIsAnimating(false); // Start the animation, hide the content
-    triggerUnderlayAnimation(); // Call the animation in Home.jsx
-  };
-
-  // Persist the theme preference across reloads
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-  }, [isDarkMode]);
 
   // Intersection Observer for tracking sections
   useEffect(() => {
     const sections = document.querySelectorAll("section");
     const observerOptions = {
-      threshold: 0.6, // When 60% of the section is in view
+      threshold: 0.3, // Trigger earlier for better UX
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setActiveSection(entry.target.id); // Set active section ID
+          setActiveSection(entry.target.id);
         }
       });
     }, observerOptions);
@@ -51,53 +39,58 @@ const Navbar = () => {
     };
   }, []);
 
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <header className="fixed top-0 left-0 w-full bg-black shadow-lg z-50">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        
-        {/* Logo */}
-        <a href="/" className="flex items-center flex-shrink-0">
-          <img
-            src={logo} // Path to your favicon or logo
-            alt="Logo"
-            className="w-10 h-10" // Adjust size as needed
-          />
-          <span className="text-xl font-bold text-white ml-3">AS</span>
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? "glass-nav py-3" : "bg-transparent py-6"
+        }`}
+    >
+      <div className="container mx-auto px-6 flex justify-between items-center">
+
+        {/* Minimalist Logo */}
+        <a
+          href="/"
+          className="text-2xl font-bold tracking-tighter hover:text-gray-300 transition-colors"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        >
+          AS
         </a>
 
         {/* Navigation Links */}
-        <nav className="flex space-x-8 text-sm uppercase tracking-widest font-medium">
-          {["about", "education", "skills", "research", "experience", "projects", "contact"].map((link) => (
+        <nav className="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
+          {["about", "experience", "projects", "contact"].map((link) => (
             <a
               key={link}
               href={`#${link}`}
-              className={
-                activeSection === link
-                  ? "text-white border-b-2 border-white pb-1 transition-all duration-300"
-                  : "text-gray-400 hover:text-white hover:border-b-2 hover:border-white pb-1 transition-all duration-300"
-              }
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection(link);
+              }}
+              className={`transition-colors duration-300 hover:text-white ${activeSection === link ? "text-white" : "text-gray-400"
+                }`}
             >
               {link.charAt(0).toUpperCase() + link.slice(1)}
             </a>
           ))}
         </nav>
 
-        {/* Dark Mode Toggle */}
-        <button
-          onClick={toggleDarkMode}
-          className="ml-4 bg-gray-200 dark:bg-gray-700 p-2 rounded-full shadow transition duration-300 flex items-center"
-          aria-label="Toggle Day/Night Mode"
-        >
-          {isDarkMode ? (
-            <svg className="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z" />
+        {/* Mobile Menu Button (Placeholder) */}
+        <div className="md:hidden">
+          <button className="text-white focus:outline-none">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
-          ) : (
-            <svg className="w-6 h-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 15a5 5 0 100-10 5 5 0 000 10zm1-7V7a1 1 0 10-2 0v1a1 1 0 002 0zm-1 7a1 1 0 100-2 1 1 0 000 2zm-6-4h1a1 1 0 100-2H4a1 1 0 000 2zm10-1a1 1 0 100 2h1a1 1 0 000-2h-1z" />
-            </svg>
-          )}
-        </button>
+          </button>
+        </div>
       </div>
     </header>
   );

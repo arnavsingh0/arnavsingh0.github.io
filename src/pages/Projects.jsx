@@ -12,13 +12,13 @@ const Projects = () => {
       name: "Cataclysmic Binary Stars",
       description: "Co-authored a research paper on the photometric analysis of cataclysmic variable stars.",
       tags: ["Astrophysics", "Python", "Data Science"],
-      link: "https://arxiv.org/abs/2511.12762"
+      link: "https://iopscience.iop.org/article/10.3847/1538-3881/ae201f"
     },
     {
       name: "Magnetosphere Prediction",
       description: "Designed multimodal ML pipelines improving rapid space-weather forecasting accuracy via Open-Close Boundary.",
       tags: ["Machine Learning", "NASA", "Space Weather"],
-      link: "https://github.com/arnavsingh0"
+      link: "https://github.com/arnavsingh0/OCB_modeling"
     }
   ];
 
@@ -60,11 +60,15 @@ const Projects = () => {
                 className="glass-panel p-6 rounded-xl hover:bg-white/5 transition-all duration-300 group"
               >
                 <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-6 ${project.theme} shadow-lg`}>
-                  <img
-                    src={project.iconUrl}
-                    alt='threads'
-                    className='w-1/2 h-1/2 object-contain'
-                  />
+                  {typeof project.iconUrl === 'string' ? (
+                    <img
+                      src={project.iconUrl}
+                      alt={project.name}
+                      className='w-1/2 h-1/2 object-contain'
+                    />
+                  ) : (
+                    <project.iconUrl className='w-1/2 h-1/2 text-white' />
+                  )}
                 </div>
 
                 <h4 className='text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors'>

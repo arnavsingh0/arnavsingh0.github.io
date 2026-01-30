@@ -36,7 +36,7 @@ const renderContent = {
     ),
     2: (
         <InfoBox
-            text="I blend Physics, CS, and Math to build complex simulations and applications."
+            text="I fuse my love for Physics, CS, and Math to build applications and simulations with real momentum."
             link="#about"
             btnText="About me"
         />
@@ -50,7 +50,7 @@ const renderContent = {
     ),
     4: (
         <InfoBox
-            text="Need a project done or looking for a dev? I'm just a few keystrokes away"
+            text="Need a project done or looking for a dev? I'm just a click away!"
             link="#contact"
             btnText="Let's talk"
         />

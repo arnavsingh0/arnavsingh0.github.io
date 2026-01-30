@@ -1,4 +1,5 @@
 import { meta, shopify, starbucks, tesla } from "../assets/images";
+import { FaChartLine, FaShieldAlt, FaGamepad } from "react-icons/fa";
 import {
     car,
     contact,
@@ -184,21 +185,21 @@ export const socialLinks = [
 
 export const projects = [
     {
-        iconUrl: pricewise, // Placeholder icon
+        iconUrl: FaChartLine,
         theme: 'btn-back-red',
         name: 'Olympic Medal Prediction',
         description: 'Built ML models (Random Forest, Gradient Boosting) to predict 2024 Olympic medal outcomes with 82% accuracy using 120 years of historical data.',
-        link: 'https://github.com/arnavsingh0',
+        link: 'https://github.com/arnavsingh0/Olympics',
     },
     {
-        iconUrl: threads, // Placeholder icon
+        iconUrl: FaShieldAlt,
         theme: 'btn-back-green',
         name: 'AWS Cloud Security',
         description: 'Architected a cloud-native AWS security stack with WAF, Shield, and Cognito. Implemented end-to-end encryption to defend against DDoS and web exploits.',
         link: 'https://github.com/arnavsingh0',
     },
     {
-        iconUrl: car, // Placeholder icon
+        iconUrl: FaGamepad,
         theme: 'btn-back-blue',
         name: 'Nuggets (Multiplayer Game)',
         description: 'Engineered server logic and dynamic UI in C for a #1-ranked multiplayer game. Implemented real-time message passing for game state synchronization.',

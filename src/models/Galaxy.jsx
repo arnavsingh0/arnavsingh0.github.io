@@ -12,6 +12,8 @@ export function Galaxy({ isRotating, setIsRotating, setCurrentStage, ...props })
   const { nodes } = useGLTF(galaxyModel);
   const { camera } = useThree();
 
+  const isMobile = window.innerWidth < 768; // Simple mobile check
+
   const [positions, colors] = useMemo(() => {
     nodes.Object_2.geometry.center();
     const positions = new Float32Array(
@@ -23,7 +25,10 @@ export function Galaxy({ isRotating, setIsRotating, setCurrentStage, ...props })
       Math.sqrt(x * x + y * y + z * z);
 
     const color = new THREE.Color();
-    for (let i = 0; i < positions.length; i += 3) {
+    // Reduce particle count on mobile for performance
+    const step = isMobile ? 9 : 3;
+
+    for (let i = 0; i < positions.length; i += step) {
       const x = positions[i];
       const y = positions[i + 1];
       const z = positions[i + 2];
@@ -39,7 +44,7 @@ export function Galaxy({ isRotating, setIsRotating, setCurrentStage, ...props })
     }
 
     return [positions, colors];
-  }, [nodes]);
+  }, [nodes, isMobile]);
 
   useFrame(() => {
     if (!isRotating) {
@@ -88,14 +93,17 @@ export function Galaxy({ isRotating, setIsRotating, setCurrentStage, ...props })
           size={0.01}
         />
       </Points>
-      <EffectComposer autoClear={false}>
-        <SelectiveBloom
-          intensity={2}
-          luminanceThreshold={0.001}
-          luminanceSmoothing={0.225}
-          lights={[galaxyCenterLightRef]}
-        />
-      </EffectComposer>
+      {/* Disable Bloom on mobile to prevent crashes/lag */}
+      {!isMobile && (
+        <EffectComposer autoClear={false}>
+          <SelectiveBloom
+            intensity={2}
+            luminanceThreshold={0.001}
+            luminanceSmoothing={0.225}
+            lights={[galaxyCenterLightRef]}
+          />
+        </EffectComposer>
+      )}
     </group>
   );
 }

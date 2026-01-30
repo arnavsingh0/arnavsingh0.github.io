@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from "react-router-dom";
 
-import { Navbar, Footer } from "./components";
+import { Navbar, Footer, Cursor } from "./components";
 import {
   Home,
   About,
@@ -13,6 +13,7 @@ import {
 const App = () => {
   return (
     <main className='bg-black min-h-screen w-full'>
+      <Cursor />
       <Router>
         <Navbar />
         <div className="relative z-0">

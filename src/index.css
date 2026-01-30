@@ -112,3 +112,10 @@ html {
 .animate-fadeIn {
   animation: fadeIn 0.8s ease-out forwards;
 }
+
+/* Custom Cursor Logic */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}

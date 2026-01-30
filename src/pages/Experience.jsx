@@ -1,9 +1,9 @@
 import { FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '../hoc';
-import lockheedLogo from '../assets/images/tesla.png'; // Using placeholder logos for now
-import llnlLogo from '../assets/images/meta.png';
-import dartmouthLogo from '../assets/images/starbucks.png';
+import playstationLogo from '../assets/images/playstation.png'; // Using placeholder logos for now
+import llnlLogo from '../assets/images/saao.png';
+import dartmouthLogo from '../assets/images/dartmouth.png';
 import dPineLogo from '../assets/images/D-Pine_Black.png';
 
 const Experience = () => {
@@ -12,8 +12,8 @@ const Experience = () => {
       type: 'work',
       role: 'Software Engineer Intern',
       company: 'PlayStation (Sony Interactive Entertainment)',
-      duration: 'Jun 2025 – Present',
-      logo: lockheedLogo,
+      duration: 'Jun – Dec 2025',
+      logo: playstationLogo,
       desc: "Co-leading development of a React-based internal analytics app for cloud gaming. Building modular TypeScript components for an internal SDK and enhancing application scalability."
     },
     {
@@ -22,14 +22,14 @@ const Experience = () => {
       company: 'South African Astronomical Observatory',
       duration: 'Jan – March 2025',
       logo: llnlLogo,
-      desc: "Developed an end-to-end Python data pipeline for telescope imaging. Engineered automated QC tools and co-authored a research paper on Cataclysmic Binary Stars."
+      desc: "Co-authored a research paper on Cataclysmic Binary Stars. Developed an end-to-end Python data pipeline for telescope imaging and engineered automated QC tools."
     },
     {
       type: 'work',
       role: 'Presidential Researcher',
       company: 'Millan Research Lab',
       duration: 'Jan 2024 – Present',
-      logo: llnlLogo,
+      logo: dPineLogo,
       desc: "Built ensemble ML models for a $150M NASA mission, improving space-weather forecasts by 2.5x. Designed multimodal ML pipelines for magnetosphere prediction."
     },
     {
@@ -37,15 +37,15 @@ const Experience = () => {
       role: 'Software Engineer Consultant',
       company: 'DTCG',
       duration: 'Sept – Dec 2024',
-      logo: dartmouthLogo,
-      desc: "Delivered a full-stack market-making simulation with Python backend and React frontend. Engineered a dynamic P&L tracking system for 300+ users."
+      logo: dPineLogo,
+      desc: "Delivered a full-stack market-making simulation with Django backend and React frontend. Engineered a dynamic P&L tracking system for 300+ users."
     },
     {
       type: 'work',
       role: 'CS Teaching Assistant',
-      company: 'Dartmouth Computer Science Dept',
+      company: 'Dartmouth Computer Science Dept.',
       duration: 'Aug 2024 – Present',
-      logo: dPineLogo,
+      logo: dartmouthLogo,
       desc: "Mentoring 350+ students across Web Programming, Cybersecurity, and ML courses. Debugging projects in Python, C/C++, and JavaScript."
     }
   ];
@@ -56,9 +56,9 @@ const Experience = () => {
       role: 'Dartmouth College',
       company: 'Bachelor of Arts',
       duration: 'June 2026',
-      logo: dPineLogo,
+      logo: dartmouthLogo,
       desc: "Double Major in Computer Science & Physics, Minor in Mathematics. GPA: 3.9/4.0.",
-      coursework: "Relevant Coursework: Machine Learning (Grad), AI (Grad), Quantum Mechanics, Security & Privacy, Distributed Systems."
+      coursework: "Relevant Coursework: Machine Learning (Grad), AI (Grad), Quantum Mechanics, Security & Privacy, Software Design & Implementation, DSA & OOP."
     }
   ];
 

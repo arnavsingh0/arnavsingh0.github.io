@@ -3,19 +3,21 @@ import { motion } from "framer-motion";
 import myimage from "../assets/images/myimage.png";
 import { SectionWrapper } from "../hoc";
 
+import Map from "../components/Map";
+
 const About = () => {
   const passions = [
+    {
+      icon: <IoCodeSlash className="w-8 h-8 text-blue-400" />,
+      title: "Cool Software",
+      desc: "Engineering & Innovation",
+      color: "from-blue-500/20 to-cyan-500/20",
+    },
     {
       icon: <IoPlanet className="w-8 h-8 text-purple-400" />,
       title: "Astronomy",
       desc: "Stargazing & Space Physics",
       color: "from-purple-500/20 to-blue-500/20",
-    },
-    {
-      icon: <IoCodeSlash className="w-8 h-8 text-blue-400" />,
-      title: "Coding",
-      desc: "Full Stack & AI Development",
-      color: "from-blue-500/20 to-cyan-500/20",
     },
     {
       icon: <IoPrism className="w-8 h-8 text-pink-400" />,
@@ -54,8 +56,8 @@ const About = () => {
               <span className="text-blue-500">Arnav Singh</span>
             </h1>
             <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto md:mx-0">
-              A <span className="text-white font-medium">Junior at Dartmouth College</span> 🌲 blending
-              <span className="text-blue-400"> Physics</span>, <span className="text-blue-400">CS</span>, and <span className="text-blue-400">Math</span> to explore the cosmos and build the future.
+              A <span className="text-white font-medium">Senior at Dartmouth College</span> 🌲 fusing
+              <span className="text-blue-400"> Physics</span>, <span className="text-blue-400">CS</span>, and <span className="text-blue-400">Math</span> to build the future and explore the cosmos.
             </p>
           </motion.div>
 
@@ -123,27 +125,32 @@ const About = () => {
           </div>
           <div className="flex justify-center">
             {/* Placeholder for a secondary image or graphic if desired, currently just a decorative element */}
-            <div className="w-full h-48 md:h-full min-h-[200px] rounded-xl bg-gradient-to-br from-blue-900/30 to-purple-900/30 flex items-center justify-center border border-white/5">
-              <span className="text-gray-500 font-mono text-sm">Creating Impact 🚀</span>
+            <div className="w-full h-[400px] rounded-xl bg-black/20 overflow-hidden border border-white/5 flex items-center justify-center p-4">
+              <Map />
             </div>
           </div>
         </motion.div>
 
         {/* CTA */}
         <div className="text-center">
-          <motion.a
-            href="/path-to-resume.pdf" // TODO: Replace with your resume link
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-3 bg-white text-black hover:bg-gray-200 font-bold py-4 px-10 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
-          >
-            <span>View Resume</span>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-          </motion.a>
-        </div>
+          <div className="text-center relative">
+            <motion.button
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-3 bg-white text-black hover:bg-gray-200 font-bold py-4 px-10 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+            >
+              <span>View Resume</span>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            </motion.button>
+          </div>
 
+        </div>
       </div>
     </section>
   );

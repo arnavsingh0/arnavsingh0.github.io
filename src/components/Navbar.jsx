@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { logo } from "../assets/images";
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("");
@@ -56,13 +57,14 @@ const Navbar = () => {
         {/* Minimalist Logo */}
         <a
           href="/"
-          className="text-2xl font-bold tracking-tighter hover:text-gray-300 transition-colors"
+          className="flex items-center gap-2"
           onClick={(e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          AS
+          <img src={logo} alt='logo' className='w-9 h-9 object-contain' />
+          <p className="text-2xl font-bold tracking-tighter hover:text-gray-300 transition-colors">AS</p>
         </a>
 
         {/* Navigation Links */}

@@ -12,32 +12,44 @@ const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const { alert, showAlert, hideAlert } = useAlert();
   const [loading, setLoading] = useState(false);
-  const [currentAnimation, setCurrentAnimation] = useState("idle");
+  const [isRotating, setIsRotating] = useState(false);
 
   const handleChange = ({ target: { name, value } }) => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleFocus = () => setCurrentAnimation("walk");
-  const handleBlur = () => setCurrentAnimation("idle");
+  const handleFocus = () => setIsRotating(true);
+  const handleBlur = () => setIsRotating(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    setCurrentAnimation("hit");
+    setIsRotating(true);
+
+    const serviceId = import.meta.env.VITE_APP_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setLoading(false);
+      showAlert({
+        show: true,
+        text: "EmailJS environment variables are missing!",
+        type: "danger",
+      });
+      return;
+    }
 
     emailjs
       .send(
-        import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+        serviceId,
+        templateId,
         {
-          from_name: form.name,
-          to_name: "Arnav Singh",
-          from_email: form.email,
-          to_email: "arnav.singh.26@dartmouth.edu",
+          name: form.name,
+          title: form.email,
           message: form.message,
         },
-        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+        publicKey
       )
       .then(
         () => {
@@ -50,18 +62,16 @@ const Contact = () => {
 
           setTimeout(() => {
             hideAlert(false);
-            setCurrentAnimation("idle");
             setForm({
               name: "",
               email: "",
               message: "",
             });
-          }, [3000]);
+          }, 3000);
         },
         (error) => {
           setLoading(false);
           console.error(error);
-          setCurrentAnimation("idle");
 
           showAlert({
             show: true,
@@ -69,7 +79,9 @@ const Contact = () => {
             type: "danger",
           });
         }
-      );
+      ).finally(() => {
+        setIsRotating(false);
+      });
   };
 
   return (
@@ -85,63 +97,55 @@ const Contact = () => {
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className='w-full flex flex-col gap-8'
+          className='w-full flex flex-col gap-6'
         >
-          <div className="relative group">
+          <label className='flex flex-col'>
+            <span className='font-semibold text-gray-300 mb-2'>Name</span>
             <input
               type='text'
               name='name'
-              className='w-full bg-transparent border-b border-gray-700 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors duration-300 peer'
-              placeholder=' '
+              className='bg-white/5 border border-white/10 rounded-lg p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 resize-none [&:-webkit-autofill]:shadow-[0_0_0_1000px_#1d1836_inset] [&:-webkit-autofill]:text-white [&:-webkit-autofill]:-webkit-text-fill-color-white'
+              placeholder='Who’s the preferred frame of reference?'
               required
               value={form.name}
               onChange={handleChange}
               onFocus={handleFocus}
               onBlur={handleBlur}
             />
-            <label className='absolute left-0 top-3 text-gray-500 transition-all duration-300 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-blue-500 peer-not-placeholder-shown:-top-6 peer-not-placeholder-shown:text-sm peer-not-placeholder-shown:text-gray-400 pointer-events-none'>
-              Name
-            </label>
-          </div>
-
-          <div className="relative group">
+          </label>
+          <label className='flex flex-col'>
+            <span className='font-semibold text-gray-300 mb-2'>Email</span>
             <input
               type='email'
               name='email'
-              className='w-full bg-transparent border-b border-gray-700 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors duration-300 peer'
-              placeholder=' '
+              className='bg-white/5 border border-white/10 rounded-lg p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 resize-none [&:-webkit-autofill]:shadow-[0_0_0_1000px_#1d1836_inset] [&:-webkit-autofill]:text-white [&:-webkit-autofill]:-webkit-text-fill-color-white'
+              placeholder='Ex. noether.symmetry@lagrangian.io'
               required
               value={form.email}
               onChange={handleChange}
               onFocus={handleFocus}
               onBlur={handleBlur}
             />
-            <label className='absolute left-0 top-3 text-gray-500 transition-all duration-300 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-blue-500 peer-not-placeholder-shown:-top-6 peer-not-placeholder-shown:text-sm peer-not-placeholder-shown:text-gray-400 pointer-events-none'>
-              Email
-            </label>
-          </div>
-
-          <div className="relative group">
+          </label>
+          <label className='flex flex-col'>
+            <span className='font-semibold text-gray-300 mb-2'>Message</span>
             <textarea
               name='message'
               rows='4'
-              className='w-full bg-transparent border-b border-gray-700 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors duration-300 peer resize-none'
-              placeholder=' '
+              className='bg-white/5 border border-white/10 rounded-lg p-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 resize-none [&:-webkit-autofill]:shadow-[0_0_0_1000px_#1d1836_inset] [&:-webkit-autofill]:text-white [&:-webkit-autofill]:-webkit-text-fill-color-white'
+              placeholder='Type your message; boundary conditions may apply...'
               required
               value={form.message}
               onChange={handleChange}
               onFocus={handleFocus}
               onBlur={handleBlur}
             />
-            <label className='absolute left-0 top-3 text-gray-500 transition-all duration-300 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-blue-500 peer-not-placeholder-shown:-top-6 peer-not-placeholder-shown:text-sm peer-not-placeholder-shown:text-gray-400 pointer-events-none'>
-              Message
-            </label>
-          </div>
+          </label>
 
           <button
             type='submit'
             disabled={loading}
-            className='btn mt-4 self-start'
+            className='btn bg-gradient-to-r from-blue-500 to-purple-600 border-none text-white font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 w-full sm:w-auto'
             onFocus={handleFocus}
             onBlur={handleBlur}
           >
@@ -150,7 +154,7 @@ const Contact = () => {
         </form>
       </div>
 
-      <div className='lg:w-1/2 w-full lg:h-auto md:h-[550px] h-[350px] relative'>
+      <div className='lg:w-1/2 w-full lg:h-auto md:h-[550px] h-[350px] relative overflow-hidden'>
         <Canvas
           camera={{
             position: [0, 0, 5],
@@ -171,10 +175,10 @@ const Contact = () => {
 
           <Suspense fallback={<Loader />}>
             <Rocket
-              currentAnimation={currentAnimation}
+              isRotating={isRotating}
               position={[0, 0, 0]}
               rotation={[0, 0, 0]}
-              scale={[0.5, 0.5, 0.5]}
+              scale={[.1, .1, .1]}
             />
           </Suspense>
         </Canvas>

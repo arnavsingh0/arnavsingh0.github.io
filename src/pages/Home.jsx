@@ -108,7 +108,7 @@ const Home = () => {
       <div className={`absolute bottom-20 left-0 right-0 flex justify-center pointer-events-none transition-opacity duration-1000 ${showHint ? 'opacity-100' : 'opacity-0'}`}>
         <div className="glass-panel px-6 py-3 rounded-full flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20">
           <FaHandPointer className="text-blue-400 animate-bounce" />
-          <span className="text-white font-medium tracking-wide">Drag to explore the galaxy</span>
+          <span className="text-white font-medium tracking-wide">Drag to explore the galaxy & scroll down for more</span>
         </div>
       </div>
 

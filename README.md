@@ -16,7 +16,7 @@ The portfolio includes:
 
 ## 🌐 Live Website
 
-Visit my portfolio at: [**arnavsingh.github.io**](https:arnavsingh0.github.io)
+Visit my portfolio at: [**arnavsingh.github.io**](https://arnavsingh0.github.io)
 
 ## 🛠️ Tech Stack
 

@@ -1,4 +1,4 @@
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Points, useGLTF } from "@react-three/drei";
 import { EffectComposer, SelectiveBloom } from "@react-three/postprocessing";
@@ -6,7 +6,7 @@ import * as THREE from "three";
 
 import galaxyModel from "../assets/3d/galaxy.glb";
 
-export function Galaxy({ isRotating, setIsRotating, setCurrentStage, ...props }) {
+export function Galaxy({ isRotating, setCurrentStage, ...props }) {
   const ref = useRef();
   const galaxyCenterLightRef = useRef();
   const { nodes } = useGLTF(galaxyModel);
@@ -66,13 +66,13 @@ export function Galaxy({ isRotating, setIsRotating, setCurrentStage, ...props })
 
     // Define stages based on angle segments
     if (normalizedAngle >= 0 && normalizedAngle < 0.25) {
-      setCurrentStage(1);
-    } else if (normalizedAngle >= 0.25 && normalizedAngle < 0.5) {
       setCurrentStage(2);
+    } else if (normalizedAngle >= 0.25 && normalizedAngle < 0.5) {
+      setCurrentStage(1);
     } else if (normalizedAngle >= 0.5 && normalizedAngle < 0.75) {
-      setCurrentStage(3);
-    } else if (normalizedAngle >= 0.75 && normalizedAngle <= 1) {
       setCurrentStage(4);
+    } else if (normalizedAngle >= 0.75 && normalizedAngle <= 1) {
+      setCurrentStage(3);
     }
   });
 

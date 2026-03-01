@@ -17,12 +17,13 @@ const Home = () => {
   const [showHint, setShowHint] = useState(true);
 
   useEffect(() => {
+    const currentAudio = audioRef.current;
     if (isPlayingMusic) {
-      audioRef.current.play();
+      currentAudio.play();
     }
 
     return () => {
-      audioRef.current.pause();
+      currentAudio.pause();
     };
   }, [isPlayingMusic]);
 
@@ -38,11 +39,11 @@ const Home = () => {
     let screenScale, screenPosition;
 
     if (window.innerWidth < 768) {
-      screenScale = [0.9, 0.9, 0.9];
-      screenPosition = [0, -1.5, 0];
+      screenScale = [0.7, 0.7, 0.7];
+      screenPosition = [0, -2.5, 0];
     } else {
       screenScale = [1, 1, 1];
-      screenPosition = [0, -2, 0];
+      screenPosition = [0, -4.5, 0];
     }
 
     return [screenScale, screenPosition];
@@ -63,6 +64,7 @@ const Home = () => {
       {/* Fixed 3D Background */}
       <div className="fixed inset-0 z-0">
         <Canvas
+          dpr={[1, 2]}
           className={`w-full h-full bg-transparent ${isRotating ? "cursor-grabbing" : "cursor-grab"}`}
           camera={{ position: [0, 0, 30], near: 0.1, far: 1000 }}
         >
@@ -132,6 +134,17 @@ const Home = () => {
             <span className="absolute inset-0 rounded-full border border-blue-400 animate-ping opacity-75"></span>
           )}
         </button>
+      </div>
+
+      {/* Rover Game Quick Link */}
+      <div className='absolute bottom-6 right-6 z-20'>
+        <a
+          href="/lunar-rover"
+          className="group relative px-5 py-3 rounded-full flex items-center justify-center transition-all duration-300 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-blue-400 gap-3 cursor-pointer shadow-lg"
+        >
+          <span className="text-white text-sm font-mono tracking-wider group-hover:text-blue-300 transition-colors">CLICK TO DRIVE ROVER</span>
+          <span className="w-2.5 h-2.5 rounded-full bg-green-500/80 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.8)]"></span>
+        </a>
       </div>
     </section>
   );

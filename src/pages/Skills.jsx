@@ -1,5 +1,5 @@
-import { FaCode, FaDatabase, FaTools, FaRocket, FaPython, FaJava, FaRust, FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaAws, FaDocker, FaGitAlt, FaLinux, FaPhp, FaAngular, FaVuejs } from 'react-icons/fa';
-import { SiCplusplus, SiMongodb, SiPostgresql, SiTensorflow, SiPandas, SiNumpy, SiScikitlearn, SiGo, SiR, SiRedux, SiGraphql, SiTypescript } from 'react-icons/si';
+import { FaCode, FaTools, FaRocket, FaPython, FaJava, FaReact, FaNodeJs, FaAws, FaDocker, FaGitAlt, FaLinux, FaPhp, FaAngular, FaVuejs } from 'react-icons/fa';
+import { SiCplusplus, SiPostgresql, SiTensorflow, SiPandas, SiNumpy, SiScikitlearn, SiGo, SiR, SiRedux, SiGraphql, SiTypescript } from 'react-icons/si';
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '../hoc';
 
@@ -104,4 +104,5 @@ const Skills = () => {
   );
 };
 
-export default SectionWrapper(Skills, "skills");
+const SkillsSection = SectionWrapper(Skills, "skills");
+export default SkillsSection;

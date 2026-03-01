@@ -1,7 +1,7 @@
 import emailjs from "@emailjs/browser";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useRef, useState } from "react";
-import { OrbitControls } from "@react-three/drei";
+
 import { Rocket } from "../models";
 import useAlert from "../hooks/useAlert";
 import { Alert, Loader } from "../components";
@@ -85,13 +85,13 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className='relative flex lg:flex-row flex-col max-container h-[100vh]'>
+    <section id="contact" className='relative flex lg:flex-row flex-col max-container min-h-[100vh]'>
       {alert.show && <Alert {...alert} />}
 
-      <div className='flex-1 min-w-[50%] flex flex-col justify-center p-10'>
+      <div className='flex-1 min-w-[50%] flex flex-col justify-center sm:p-10 mb-8 lg:mb-0'>
         <h1 className='head-text mb-4'>Get in Touch</h1>
         <p className='text-gray-400 mb-10 text-lg'>
-          Have a project in mind or just want to say hi? I'd love to hear from you.
+          Wanna see my resume, have a project in mind, or just want to say hi? I'd love to hear from you!
         </p>
 
         <form
@@ -156,6 +156,7 @@ const Contact = () => {
 
       <div className='lg:w-1/2 w-full lg:h-auto md:h-[550px] h-[350px] relative overflow-hidden'>
         <Canvas
+          dpr={[1, 2]}
           camera={{
             position: [0, 0, 5],
             fov: 75,

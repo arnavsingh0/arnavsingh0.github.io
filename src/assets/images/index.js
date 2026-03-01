@@ -1,13 +1,15 @@
-import meta from './meta.png'
-import shopify from './shopify.png'
-import starbucks from './starbucks.png'
-import tesla from './tesla.png'
 import logo from './logo.svg'
+import myimage from './myimage.png'
+import playstation from './playstation.png'
+import saao from './saao.png'
+import dPine from './D-Pine_Black.png'
+import dartmouth from './dartmouth.png'
 
 export {
-    meta,
-    shopify,
-    starbucks,
-    tesla,
-    logo
+    logo,
+    myimage,
+    playstation,
+    saao,
+    dPine,
+    dartmouth
 }

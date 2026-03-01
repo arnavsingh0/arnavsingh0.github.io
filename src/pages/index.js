@@ -4,6 +4,8 @@ import Projects from './Projects';
 import Contact from './Contact';
 import Skills from './Skills';
 import Experience from './Experience';
+import PlainView from './PlainView';
+import LunarRover from './LunarRover';
 
 export {
   Home,
@@ -11,5 +13,7 @@ export {
   Projects,
   Contact,
   Skills,
-  Experience
+  Experience,
+  PlainView,
+  LunarRover
 };

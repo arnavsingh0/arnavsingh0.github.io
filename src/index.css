@@ -9,14 +9,14 @@
 :root {
   /* Premium Dark Theme Palette (Vercel/Tesla inspired) */
   --bg-primary: #000000;
-  --bg-secondary: #111111;
-  --text-primary: #ffffff;
-  --text-secondary: #888888;
+  --bg-secondary: #0a0a0a;
+  --text-primary: #f5f5f7;
+  /* Slightly softer white for better readability on pure black */
+  --text-secondary: #a1a1aa;
+  /* Softer gray for less eye strain */
   --accent-blue: #3291ff;
-  /* Vercel Blue */
   --accent-purple: #7928ca;
-  /* Vercel Purple */
-  --border-color: #333333;
+  --border-color: #27272a;
 }
 
 body {
@@ -38,6 +38,7 @@ h6 {
   color: var(--text-primary);
   letter-spacing: -0.02em;
   /* Tight tracking for modern look */
+  font-weight: 600;
 }
 
 p {
@@ -71,7 +72,7 @@ html {
 /* Tailwind Utility Layer Modifications */
 @layer utilities {
   .max-container {
-    @apply max-w-7xl mx-auto sm:p-16 pb-12 px-8;
+    @apply max-w-7xl mx-auto sm:p-16 pb-12 px-4 sm:px-8;
   }
 
   .head-text {

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arnavsingh0.github.io/sitemap.xml

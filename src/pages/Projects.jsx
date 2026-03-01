@@ -229,8 +229,8 @@ const Projects = () => {
                     <div className="pt-8 flex justify-end">
                       <Link
                         to={selectedProject.link}
-                        target='_blank'
-                        rel='noopener noreferrer'
+                        target={selectedProject.link.startsWith('http') ? '_blank' : undefined}
+                        rel={selectedProject.link.startsWith('http') ? 'noopener noreferrer' : undefined}
                         className='group flex items-center justify-center gap-3 bg-white/10 border border-white/20 hover:bg-blue-600 hover:border-blue-500 text-white font-mono text-sm px-6 py-3 rounded-lg transition-all w-full sm:w-auto'
                         onClick={() => setSelectedProject(null)}
                       >

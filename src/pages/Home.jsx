@@ -2,6 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { OrbitControls, Stars } from "@react-three/drei";
 import { FaVolumeUp, FaVolumeMute, FaHandPointer } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import lohengrin from "../assets/Lohengrin.mp3";
 import { HomeInfo, Loader } from "../components";
 import { Galaxy } from "../models";
@@ -138,13 +139,13 @@ const Home = () => {
 
       {/* Rover Game Quick Link */}
       <div className='absolute bottom-6 right-6 z-20'>
-        <a
-          href="/lunar-rover"
+        <Link
+          to="/lunar-rover"
           className="group relative px-5 py-3 rounded-full flex items-center justify-center transition-all duration-300 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-blue-400 gap-3 cursor-pointer shadow-lg"
         >
           <span className="text-white text-sm font-mono tracking-wider group-hover:text-blue-300 transition-colors">CLICK TO DRIVE ROVER</span>
           <span className="w-2.5 h-2.5 rounded-full bg-green-500/80 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.8)]"></span>
-        </a>
+        </Link>
       </div>
     </section>
   );

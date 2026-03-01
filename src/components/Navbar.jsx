@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { logo } from "../assets/images";
 
 const Navbar = () => {
@@ -85,12 +86,12 @@ const Navbar = () => {
             </a>
           ))}
           <div className="relative group flex items-center">
-            <a
-              href="/plain"
+            <Link
+              to="/plain"
               className="transition-colors duration-300 hover:text-white text-gray-500 font-mono text-xs border border-white/10 px-2 py-1 rounded"
             >
               [Plain.html]
-            </a>
+            </Link>
             {/* Tooltip */}
             <div className="absolute top-full right-0 mt-3 px-3 py-1.5 bg-black/90 border border-white/10 text-gray-300 text-[10px] uppercase tracking-wider font-mono whitespace-nowrap rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none z-50">
               Low-bandwidth / Accessible View
@@ -136,12 +137,12 @@ const Navbar = () => {
             </a>
           ))}
           <div className="relative group flex flex-col items-center mt-2">
-            <a
-              href="/plain"
+            <Link
+              to="/plain"
               className="transition-colors duration-300 hover:text-white text-gray-500 font-mono text-sm border border-white/10 px-4 py-2 rounded"
             >
               [Plain.html]
-            </a>
+            </Link>
             <p className="text-gray-500 text-[10px] mt-1 font-mono uppercase tracking-wider">
               Low-bandwidth / Accessible View
             </p>

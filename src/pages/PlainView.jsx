@@ -82,15 +82,15 @@ const PlainView = () => {
                         </h2>
                         <div className="flex flex-col gap-2">
                             {projects.map((proj, index) => (
-                                <a
+                                <Link
                                     key={index}
-                                    href={proj.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                    to={proj.link}
+                                    target={proj.link.startsWith('http') ? '_blank' : undefined}
+                                    rel={proj.link.startsWith('http') ? 'noopener noreferrer' : undefined}
                                     className="text-purple-600 hover:text-purple-800 font-medium text-sm block"
                                 >
                                     {proj.name}
-                                </a>
+                                </Link>
                             ))}
                         </div>
                     </section>

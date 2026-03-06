@@ -23,7 +23,6 @@ body {
   font-family: "Inter", sans-serif;
   color: var(--text-primary);
   background-color: var(--bg-primary);
-  overflow-x: hidden;
   margin: 0;
   padding: 0;
 }
@@ -49,6 +48,7 @@ p {
 /* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
+  overscroll-behavior-y: none;
 }
 
 /* Custom Scrollbar */

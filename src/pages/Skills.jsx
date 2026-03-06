@@ -6,7 +6,7 @@ import { SectionWrapper } from '../hoc';
 const Skills = () => {
   const skillCategories = [
     {
-      title: "Languages",
+      title: "Core Propulsion (Languages)",
       icon: <FaCode className="text-blue-400" />,
       skills: [
         { name: "Python", icon: <FaPython className="text-yellow-300" /> },
@@ -23,7 +23,7 @@ const Skills = () => {
       ]
     },
     {
-      title: "Frameworks & Libraries",
+      title: "Navigational Systems (Frameworks & Libraries)",
       icon: <FaRocket className="text-purple-400" />,
       skills: [
         { name: "React", icon: <FaReact className="text-cyan-400" /> },
@@ -39,7 +39,7 @@ const Skills = () => {
       ]
     },
     {
-      title: "Tools & Platforms",
+      title: "Mission Equipment (Tools & Platforms)",
       icon: <FaTools className="text-green-400" />,
       skills: [
         { name: "AWS (WAF/Shield)", icon: <FaAws className="text-orange-400" /> },
@@ -53,52 +53,76 @@ const Skills = () => {
 
   return (
     <section className="py-10 bg-black text-white relative z-10">
-      <div className="container mx-auto px-6">
-
+      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-20 text-center"
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
-            Technical Arsenal
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            A comprehensive list of the languages, frameworks, and tools I work with.
-          </p>
-        </motion.div>
+          {/* Main Dashboard Panel */}
+          <div className="w-full bg-black/80 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-md shadow-2xl shadow-blue-900/20">
+            {/* Dashboard Header Bar */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-white/5">
+              <div className="flex items-center gap-3">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500/80 animate-pulse"></div>
+                </div>
+                <p className="font-mono text-xs text-gray-400 tracking-widest ml-4 hidden sm:block">
+                  VANGUARD OS v2.0 // LOADOUT
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                <p className="font-mono text-xs text-blue-400 tracking-widest">SYSTEM_ONLINE</p>
+              </div>
+            </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {skillCategories.map((category, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="glass-panel p-8 hover:bg-white/5 transition-all duration-300"
-            >
-              <div className="flex items-center gap-3 mb-8">
-                <div className="text-2xl">{category.icon}</div>
-                <h3 className="text-xl font-bold">{category.title}</h3>
+            {/* Dashboard Content */}
+            <div className="p-6 md:p-10 lg:p-12">
+              <div className="mb-12 text-center sm:text-left">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+                  Rover Loadout
+                </h2>
+                <p className="text-gray-400 text-lg">
+                  The onboard systems, navigational frameworks, and mission-critical tools powering my expeditions.
+                </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                {category.skills.map((skill, idx) => (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {skillCategories.map((category, index) => (
                   <motion.div
-                    key={idx}
-                    whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.1)" }}
-                    className="flex items-center gap-3 p-3 rounded-lg bg-white/5 transition-colors cursor-default"
+                    key={index}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.2 }}
+                    className="glass-panel p-8 hover:bg-white/5 transition-all duration-300"
                   >
-                    <div className="text-xl">{skill.icon}</div>
-                    <span className="text-sm font-medium text-gray-300">{skill.name}</span>
+                    <div className="flex items-center gap-3 mb-8 pb-3 border-b border-white/10">
+                      <div className="w-6 h-1 bg-blue-500 rounded-full"></div>
+                      <h3 className="text-xs font-mono tracking-widest text-gray-400">{category.title.toUpperCase()}{' //'}</h3>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      {category.skills.map((skill, idx) => (
+                        <motion.div
+                          key={idx}
+                          whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.1)" }}
+                          className="flex items-center gap-3 p-3 rounded-lg bg-white/5 transition-colors cursor-default"
+                        >
+                          <div className="text-xl">{skill.icon}</div>
+                          <span className="text-sm font-medium text-gray-300">{skill.name}</span>
+                        </motion.div>
+                      ))}
+                    </div>
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
-          ))}
-        </div>
-
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

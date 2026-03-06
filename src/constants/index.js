@@ -1,6 +1,6 @@
 import { playstation, saao, dPine, dartmouth } from "../assets/images";
 import { FaChartLine, FaShieldAlt, FaGamepad, FaSpaceShuttle } from "react-icons/fa";
-import { contact, github, linkedin } from "../assets/icons";
+import { contact, github, linkedin, scholar } from "../assets/icons";
 
 export const experiences = [
     {
@@ -63,7 +63,7 @@ export const socialLinks = [
     },
     {
         name: 'Google Scholar',
-        iconUrl: '', // Using empty or a default icon, not strictly needed for PlainView
+        iconUrl: scholar,
         link: 'https://scholar.google.com/',
     }
 ];

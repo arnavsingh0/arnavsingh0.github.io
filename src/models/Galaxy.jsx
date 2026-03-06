@@ -1,4 +1,4 @@
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Points, useGLTF } from "@react-three/drei";
 import { EffectComposer, SelectiveBloom } from "@react-three/postprocessing";
@@ -12,7 +12,16 @@ export function Galaxy({ isRotating, setCurrentStage, ...props }) {
   const { nodes } = useGLTF(galaxyModel);
   const { camera } = useThree();
 
-  const isMobile = window.innerWidth < 768; // Simple mobile check
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const [positions, colors] = useMemo(() => {
     nodes.Object_2.geometry.center();

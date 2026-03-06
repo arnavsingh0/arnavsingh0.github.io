@@ -33,7 +33,7 @@ const Carousel = ({ children }) => {
             {showLeftArrow && (
                 <button
                     onClick={() => scroll("left")}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-50 p-3 bg-black/50 text-white hover:bg-black/80 opacity-0 group-hover/carousel:opacity-100 transition-opacity rounded-r-xl"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 z-50 p-3 bg-black/50 text-white hover:bg-black/80 opacity-0 group-hover/carousel:opacity-100 md:opacity-0 transition-opacity rounded-r-xl hidden md:block"
                 >
                     <FaChevronLeft size={24} />
                 </button>
@@ -58,7 +58,7 @@ const Carousel = ({ children }) => {
             {showRightArrow && (
                 <button
                     onClick={() => scroll("right")}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 z-50 p-3 bg-black/50 text-white hover:bg-black/80 opacity-0 group-hover/carousel:opacity-100 transition-opacity rounded-l-xl"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 z-50 p-3 bg-black/50 text-white hover:bg-black/80 opacity-0 group-hover/carousel:opacity-100 md:opacity-0 transition-opacity rounded-l-xl hidden md:block"
                 >
                     <FaChevronRight size={24} />
                 </button>

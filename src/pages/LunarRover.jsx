@@ -164,11 +164,34 @@ const Terrain = () => {
     );
 };
 
+// --- Mobile Controls UI ---
+const MobileButton = ({ actionKey, label, className, roverRef }) => (
+    <button
+        onContextMenu={(e) => e.preventDefault()}
+        onPointerDown={(e) => { e.preventDefault(); roverRef.current?.setKey(actionKey, true); }}
+        onPointerUp={(e) => { e.preventDefault(); roverRef.current?.setKey(actionKey, false); }}
+        onPointerLeave={(e) => { e.preventDefault(); roverRef.current?.setKey(actionKey, false); }}
+        className={`bg-white/10 border border-white/20 backdrop-blur-md text-white font-mono active:bg-blue-500/50 active:scale-95 transition-all shadow-lg flex items-center justify-center touch-none select-none ${className}`}
+    >
+        {label}
+    </button>
+);
+
 // --- Rover ---
-const Rover = ({ position, setHudData, roverPositionRef }) => {
+const Rover = React.forwardRef(({ position, setHudData, roverPositionRef }, ref) => {
     const group = useRef();
     const wheelsRef = useRef([]);
     const [keys, setKeys] = useState({ w: false, a: false, s: false, d: false, shift: false, c: false });
+
+    React.useImperativeHandle(ref, () => ({
+        setKey: (key, value) => {
+            setKeys(k => {
+                // Ignore if the key is already in this state to avoid unnecessary re-renders
+                if (k[key] === value) return k;
+                return { ...k, [key]: value };
+            });
+        }
+    }));
     const speed = useRef(0);
     const rotation = useRef(0);
     const battery = useRef(100);
@@ -389,13 +412,15 @@ const Rover = ({ position, setHudData, roverPositionRef }) => {
             </group>
         </group>
     );
-};
+});
+Rover.displayName = "Rover";
 
 // --- Main Scene ---
 const LunarRover = () => {
     const [hudData, setHudData] = useState({ speed: "0.0", battery: "100", camera: "EXT", boosting: false });
     const [score, setScore] = useState(0);
     const roverPositionRef = useRef(new THREE.Vector3(0, 0, 0));
+    const roverControlsRef = useRef();
 
     const handleCollect = () => {
         setScore(s => s + 1);
@@ -404,35 +429,37 @@ const LunarRover = () => {
     return (
         <div className="w-full h-screen relative bg-black overflow-hidden">
             {/* UI Overlay */}
-            <div className="absolute top-0 left-0 w-full p-6 sm:p-10 z-10 pointer-events-none flex flex-col sm:flex-row justify-between items-start gap-4">
+            <div className="absolute top-0 left-0 w-full p-4 sm:p-10 z-10 pointer-events-none flex flex-col sm:flex-row justify-between items-start gap-2 sm:gap-4">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold font-mono text-blue-400 tracking-widest drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
-                        VANGUARD OS // LUNAR_ROVER_SIMULATION
+                    <h1 className="text-lg sm:text-3xl font-bold font-mono text-blue-400 tracking-widest drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+                        VANGUARD OS // LUNAR_ROVER_SIM
                     </h1>
-                    <div className="text-gray-300 font-mono text-xs sm:text-sm mt-3 bg-black/60 p-4 rounded border border-blue-500/30 backdrop-blur-md inline-block max-w-sm pointer-events-auto">
-                        <span className="text-blue-400 mb-2 block font-bold border-b border-blue-500/30 pb-1">MISSION DIRECTIVE:</span>
+                    <div className="hidden sm:block text-gray-300 font-mono text-xs sm:text-sm mt-3 bg-black/60 p-3 sm:p-4 rounded border border-blue-500/30 backdrop-blur-md max-w-[80vw] sm:max-w-sm pointer-events-auto">
+                        <span className="text-blue-400 mb-1 sm:mb-2 block font-bold border-b border-blue-500/30 pb-1">MISSION DIRECTIVE:</span>
                         Navigate the lunar surface. Collect anomalous energy crystals.<br /><br />
-                        <span className="text-blue-400 block border-b border-blue-500/30 pb-1 mt-2 mb-2">CONTROLS:</span>
-                        [W] Accelerate | [S] Brake/Rev<br />
-                        [A/D] Steer | [Shift] Boost<br />
-                        [C] Toggle Camera
+                        <span className="text-blue-400 block border-b border-blue-500/30 pb-1 mt-1 sm:mt-2 mb-1 sm:mb-2">CONTROLS:</span>
+                        <div>
+                            [W] Accelerate | [S] Brake/Rev<br />
+                            [A/D] Steer | [Shift] Boost<br />
+                            [C] Toggle Camera
+                        </div>
                     </div>
                 </div>
-                <div className="text-left flex flex-col items-end sm:text-right bg-black/60 p-5 rounded border border-blue-500/30 backdrop-blur-md w-full sm:w-64">
-                    <p className="text-green-400 font-mono text-sm tracking-wider flex items-center justify-start sm:justify-end gap-2 mb-3">
-                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                <div className="text-left flex flex-col items-start sm:items-end sm:text-right bg-black/60 p-3 sm:p-5 rounded border border-blue-500/30 backdrop-blur-md w-[80vw] sm:w-64 max-w-[200px] sm:max-w-none pointer-events-auto mt-1 sm:mt-0">
+                    <p className="text-green-400 font-mono text-[10px] sm:text-sm tracking-wider flex items-center justify-start sm:justify-end gap-1.5 sm:gap-2 mb-1.5 sm:mb-3">
+                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500 animate-pulse"></span>
                         SYSTEM ONLINE
                     </p>
 
-                    <div className="space-y-2 mt-4 w-full">
-                        <div className="flex justify-between text-xs font-mono text-blue-300">
+                    <div className="space-y-1 sm:space-y-2 mt-1 sm:mt-4 w-full">
+                        <div className="flex justify-between text-[10px] sm:text-xs font-mono text-blue-300">
                             <span>VELOCITY:</span>
                             <span className={parseFloat(hudData.speed) > 20 ? "text-yellow-400" : ""}>{hudData.speed} m/s</span>
                         </div>
 
-                        <div className="flex justify-between text-xs font-mono text-blue-300 items-center">
+                        <div className="flex justify-between text-[10px] sm:text-xs font-mono text-blue-300 items-center">
                             <span>POWER:</span>
-                            <div className="w-24 h-2 bg-gray-800 rounded overflow-hidden shadow-[inset_0_0_5px_rgba(0,0,0,0.5)]">
+                            <div className="w-16 sm:w-24 h-1.5 sm:h-2 bg-gray-800 rounded overflow-hidden shadow-[inset_0_0_5px_rgba(0,0,0,0.5)]">
                                 <div
                                     className={`h-full flex-none ${parseFloat(hudData.battery) > 20 ? (hudData.boosting ? 'bg-yellow-400' : 'bg-blue-500') : 'bg-red-500 animate-pulse'}`}
                                     style={{ width: `${hudData.battery}%`, transition: 'width 0.1s linear' }}
@@ -440,18 +467,18 @@ const LunarRover = () => {
                             </div>
                         </div>
 
-                        <div className="flex justify-between text-xs font-mono text-blue-300 mt-2">
+                        <div className="flex justify-between text-[10px] sm:text-xs font-mono text-blue-300 mt-1 sm:mt-2">
                             <span>CAM MODE:</span>
                             <span className="text-green-400">[{hudData.camera}]</span>
                         </div>
 
-                        <div className="flex justify-between text-xs font-mono text-blue-300 pt-2 border-t border-blue-500/30 mt-2">
+                        <div className="flex justify-between text-[10px] sm:text-xs font-mono text-blue-300 pt-1 sm:pt-2 border-t border-blue-500/30 mt-1 sm:mt-2">
                             <span>ANOMALIES:</span>
-                            <span className="text-cyan-400 font-bold text-sm">{score}</span>
+                            <span className="text-cyan-400 font-bold text-[10px] sm:text-sm">{score}</span>
                         </div>
                     </div>
 
-                    <a href="/#projects" className="pointer-events-auto mt-6 block text-center px-6 py-2 border border-red-500/50 bg-red-500/10 text-red-400 font-mono text-sm hover:bg-red-500/30 hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all">
+                    <a href="/#projects" className="pointer-events-auto mt-3 sm:mt-6 w-full block text-center px-4 sm:px-6 py-1.5 sm:py-2 border border-red-500/50 bg-red-500/10 text-red-400 font-mono text-[10px] sm:text-sm hover:bg-red-500/30 hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all">
                         [ ABORT MISSION ]
                     </a>
                 </div>
@@ -468,6 +495,27 @@ const LunarRover = () => {
                     </div>
                 </div>
             )}
+
+            {/* Mobile Touch Controls */}
+            <div className="absolute bottom-6 left-2 right-2 sm:hidden z-20 flex justify-between items-end pointer-events-none">
+                {/* D-PAD Left */}
+                <div className="flex flex-col gap-1 pointer-events-auto">
+                    <div className="flex justify-center">
+                        <MobileButton actionKey="w" label="W" className="w-12 h-12 rounded-t-lg" roverRef={roverControlsRef} />
+                    </div>
+                    <div className="flex justify-center gap-1">
+                        <MobileButton actionKey="a" label="A" className="w-12 h-12 rounded-l-lg" roverRef={roverControlsRef} />
+                        <MobileButton actionKey="s" label="S" className="w-12 h-12 rounded-b-lg" roverRef={roverControlsRef} />
+                        <MobileButton actionKey="d" label="D" className="w-12 h-12 rounded-r-lg" roverRef={roverControlsRef} />
+                    </div>
+                </div>
+
+                {/* Actions Right */}
+                <div className="flex flex-col gap-3 pointer-events-auto items-end">
+                    <MobileButton actionKey="c" label="CAM" className="w-12 h-12 rounded-full text-[10px] font-bold" roverRef={roverControlsRef} />
+                    <MobileButton actionKey="shift" label="BOOST" className="w-14 h-14 rounded-full text-xs font-bold bg-blue-600/40 border-blue-400/50" roverRef={roverControlsRef} />
+                </div>
+            </div>
 
             {/* Performance optimal Canvas setup */}
             <Canvas dpr={[1, 1.5]} shadows camera={{ position: [0, 5, -12], fov: 60 }} performance={{ min: 0.5 }}>
@@ -491,7 +539,7 @@ const LunarRover = () => {
 
                 <Suspense fallback={null}>
                     <Terrain />
-                    <Rover position={[0, 0, 0]} setHudData={setHudData} roverPositionRef={roverPositionRef} />
+                    <Rover ref={roverControlsRef} position={[0, 0, 0]} setHudData={setHudData} roverPositionRef={roverPositionRef} />
                     <Anomalies count={30} onCollect={handleCollect} roverPositionRef={roverPositionRef} />
                     {/* Post-processing completely removed */}
                 </Suspense>

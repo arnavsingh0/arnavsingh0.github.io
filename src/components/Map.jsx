@@ -8,7 +8,7 @@ const usStatesUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
 const visitedCountries = [
     "Canada", "Ireland", "United Kingdom", "France", "Spain",
-    "India", "Turkey", "Singapore", "South Africa"
+    "India", "Turkey", "Singapore", "South Africa", "Mexico"
 ];
 
 const visitedStates = [

@@ -1,43 +1,27 @@
-# Arnav Singh's 3D Portfolio 🌌
+# Arnav Singh
 
-Welcome to my 3D portfolio! This website showcases my skills and projects across physics, computer science, and mathematics in an interactive 3D environment.
+Personal site for Arnav Singh, a physics and computer science student at Dartmouth. The page is a single column: a short introduction, study, work, research, projects, and a contact form.
 
-## 🎯 About the Portfolio
+The lunar rover is a small browser game at `/lunar-rover`.
 
-This 3D portfolio is a visual representation of my work and expertise. The goal is to provide a unique, immersive experience as you explore my projects, research, and academic achievements. The website highlights my interests in:
-- **Physics & Astrophysics** 🔭
-- **Computer Science & AI** 💻
-- **Mathematics & Data Science** 📊
+Live site: [arnavsingh0.github.io](https://arnavsingh0.github.io)
 
-The portfolio includes:
-- **Projects** 🚀: Showcasing work from internships, research, and personal coding projects.
-- **Research** 🔬: Papers and presentations related to my double major in Physics and Computer Science modified with Mathematics at Dartmouth College.
-- **Interactive Visuals**: 3D models and simulations representing complex phenomena.
+## Stack
 
-## 🌐 Live Website
+React, Vite, and Tailwind. GitHub Pages serves the production build. A push to `main` runs `.github/workflows/deploy.yml`, which builds `dist` and publishes it. The build copies `index.html` to `404.html` so client-side routes such as `/lunar-rover` resolve on GitHub Pages.
 
-Visit my portfolio at: [**arnavsingh.github.io**](https://arnavsingh0.github.io)
+## Locally
 
-## 🛠️ Tech Stack
+```bash
+npm install
+npm run dev
+```
 
-This portfolio was built using:
-- **Three.js**: For creating 3D models and animations.
-- **Node.js**: For backend logic and server-side functionality.
-- **HTML/CSS**: For structuring and styling the content.
-- **JavaScript**: For interaction and logic.
-- **GitHub Pages**: For hosting the website. 🙏
+Production build:
 
-## 📜 How to Navigate
+```bash
+npm run build
+npm run preview
+```
 
-- Click on the floating 3D icons to explore different sections of the portfolio.
-- Hover over models to learn more about each project.
-- Use the side menu for quick navigation to specific topics or works.
-
-## 🧑‍💻 How to Build Locally
-
-If you'd like to clone and run the portfolio locally:
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/arnavsingh0/3d-portfolio.git
-   ```
+The contact form uses EmailJS. Set `VITE_APP_EMAILJS_SERVICE_ID`, `VITE_APP_EMAILJS_TEMPLATE_ID`, and `VITE_APP_EMAILJS_PUBLIC_KEY` in the environment. Without them, the form tells the visitor to use LinkedIn instead.

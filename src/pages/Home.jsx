@@ -1,164 +1,206 @@
-import { Canvas } from "@react-three/fiber";
-import { Suspense, useEffect, useRef, useState } from "react";
-import { OrbitControls, Stars } from "@react-three/drei";
-import { FaVolumeUp, FaVolumeMute, FaHandPointer } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import lohengrin from "../assets/Lohengrin.mp3";
-import { HomeInfo, Loader } from "../components";
-import { Galaxy } from "../models";
+import ContactForm from "../components/ContactForm";
+import {
+  education,
+  experiences,
+  portrait,
+  profile,
+  projects,
+  publications,
+  socialLinks,
+  toolGroups,
+} from "../constants";
+
+const NAV = [
+  { id: "study", label: "Study" },
+  { id: "work", label: "Work" },
+  { id: "research", label: "Research" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
+
+const isExternal = (href) => href.startsWith("http");
+
+const EntryLink = ({ href, children }) => {
+  if (isExternal(href)) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer">
+        {children}
+        <span className="sr-only"> (opens in a new tab)</span>
+      </a>
+    );
+  }
+
+  return <Link to={href}>{children}</Link>;
+};
 
 const Home = () => {
-  const audioRef = useRef(new Audio(lohengrin));
-  audioRef.current.volume = 0.4;
-  audioRef.current.loop = true;
-
-  const [currentStage, setCurrentStage] = useState(1);
-  const [isRotating, setIsRotating] = useState(false);
-  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
-  const [showHint, setShowHint] = useState(true);
+  const [active, setActive] = useState("study");
 
   useEffect(() => {
-    const currentAudio = audioRef.current;
-    if (isPlayingMusic) {
-      currentAudio.play();
-    }
-
-    return () => {
-      currentAudio.pause();
-    };
-  }, [isPlayingMusic]);
-
-  // Hide hint after 4 seconds
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowHint(false);
-    }, 4000);
-    return () => clearTimeout(timer);
+    document.title = "Arnav Singh";
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (target) target.scrollIntoView();
   }, []);
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const sections = NAV.map(({ id }) => document.getElementById(id)).filter(Boolean);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0.1, 0.25, 0.5] }
+    );
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
-
-  const adjustGalaxyForScreenSize = () => {
-    let screenScale, screenPosition;
-
-    if (isMobile) {
-      screenScale = [0.7, 0.7, 0.7];
-      screenPosition = [0, -2.5, 0];
-    } else {
-      screenScale = [1, 1, 1];
-      screenPosition = [0, -4.5, 0];
-    }
-
-    return [screenScale, screenPosition];
-  };
-
-  const [galaxyScale, galaxyPosition] = adjustGalaxyForScreenSize();
 
   return (
-    <section id="home" className='w-full h-screen relative'>
-
-      {/* HomeInfo Overlay - Passes currentStage */}
-      <div className='absolute top-28 left-0 right-0 z-10 flex items-center justify-center pointer-events-none'>
-        <div className="pointer-events-auto">
-          {currentStage && <HomeInfo currentStage={currentStage} />}
+    <>
+      <a className="skip" href="#content">
+        Skip to content
+      </a>
+      <header className="site-header">
+        <div className="header-inner">
+          <div className="brand">
+            <h1>
+              <a href="#top">Arnav Singh</a>
+            </h1>
+            <p className="brand-role">{profile.role}</p>
+          </div>
+          <nav className="site-nav" aria-label="On this page">
+            {NAV.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                aria-current={active === item.id ? "location" : undefined}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
         </div>
-      </div>
+      </header>
 
-      {/* Fixed 3D Background */}
-      <div className="fixed inset-0 z-0">
-        <Canvas
-          dpr={[1, 2]}
-          className={`w-full h-full bg-transparent ${isRotating ? "cursor-grabbing" : "cursor-grab"}`}
-          camera={{ position: [0, 0, 30], near: 0.1, far: 1000 }}
-        >
-          <Suspense fallback={<Loader />}>
-            <directionalLight position={[1, 1, 1]} intensity={2} />
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 5, 10]} intensity={2} />
-            <spotLight
-              position={[0, 50, 10]}
-              angle={0.15}
-              penumbra={1}
-              intensity={2}
-            />
-            <hemisphereLight
-              skyColor='#b1e1ff'
-              groundColor='#000000'
-              intensity={1}
-            />
-
-            <Stars radius={300} depth={60} count={20000} factor={7} saturation={0} fade speed={1} />
-
-            <Galaxy
-              isRotating={isRotating}
-              setIsRotating={setIsRotating}
-              setCurrentStage={setCurrentStage}
-              position={galaxyPosition}
-              rotation={[0, 0, 0]} // Adjusted initial rotation for better view
-              scale={galaxyScale}
-            />
-
-            <OrbitControls
-              enableZoom={false}
-              enablePan={false}
-              rotateSpeed={0.5}
-              autoRotate={!isRotating} // Auto-rotate when not interacting
-              autoRotateSpeed={0.5}
-            />
-          </Suspense>
-        </Canvas>
-      </div>
-
-      {/* Interaction Hint */}
-      <div className={`absolute bottom-20 left-0 right-0 flex justify-center pointer-events-none transition-opacity duration-1000 ${showHint ? 'opacity-100' : 'opacity-0'}`}>
-        <div className="glass-panel px-6 py-3 rounded-full flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20">
-          <FaHandPointer className="text-blue-400 animate-bounce" />
-          <span className="text-white font-medium tracking-wide">Drag to explore the galaxy & scroll down for more</span>
+      <main id="content" className="page">
+        <div id="top" className="intro">
+          <img className="portrait" src={portrait.src} alt={portrait.alt} width="400" height="400" />
+          <div>
+            {profile.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+            <blockquote className="epigraph">
+              <p>{profile.quote.text}</p>
+              <footer>
+                <cite>{profile.quote.cite}</cite>
+              </footer>
+            </blockquote>
+          </div>
         </div>
-      </div>
 
-      {/* Sound Control */}
-      <div className='absolute bottom-6 left-6 z-20'>
-        <button
-          onClick={() => setIsPlayingMusic(!isPlayingMusic)}
-          className={`group relative w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${isPlayingMusic
-            ? 'bg-blue-500/20 border-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.5)]'
-            : 'bg-white/10 border-white/20 hover:bg-white/20'
-            } backdrop-blur-md border`}
-        >
-          {isPlayingMusic ? (
-            <FaVolumeUp className="w-5 h-5 text-blue-400" />
-          ) : (
-            <FaVolumeMute className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
-          )}
+        <section id="study" aria-labelledby="study-heading">
+          <h2 id="study-heading">Study</h2>
+          <div className="entries">
+            <article className="entry">
+              <p className="when">{education.when}</p>
+              <div>
+                <h3>{education.school}</h3>
+                <p className="where">{education.degree}</p>
+                <p className="desc">{education.detail}</p>
+              </div>
+            </article>
+          </div>
+          <h3 className="subhead">Languages and tools</h3>
+          {toolGroups.map((group) => (
+            <p className="note" key={group.label}>
+              <strong>{group.label}. </strong>
+              {group.items}
+            </p>
+          ))}
+        </section>
 
-          {/* Pulse Effect when playing */}
-          {isPlayingMusic && (
-            <span className="absolute inset-0 rounded-full border border-blue-400 animate-ping opacity-75"></span>
-          )}
-        </button>
-      </div>
+        <section id="work" aria-labelledby="work-heading">
+          <h2 id="work-heading">Work</h2>
+          <div className="entries">
+            {experiences.map((item) => (
+              <article className="entry" key={`${item.company}-${item.duration}`}>
+                <p className="when">{item.duration}</p>
+                <div>
+                  <h3>{item.role}</h3>
+                  <p className="where">{item.company}</p>
+                  <p className="desc">{item.desc}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      {/* Rover Game Quick Link */}
-      <div className='absolute bottom-6 right-6 z-20'>
-        <Link
-          to="/lunar-rover"
-          className="group relative px-5 py-3 rounded-full flex items-center justify-center transition-all duration-300 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-blue-400 gap-3 cursor-pointer shadow-lg"
-        >
-          <span className="text-white text-sm font-mono tracking-wider group-hover:text-blue-300 transition-colors">CLICK TO DRIVE ROVER</span>
-          <span className="w-2.5 h-2.5 rounded-full bg-green-500/80 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.8)]"></span>
-        </Link>
-      </div>
-    </section>
+        <section id="research" aria-labelledby="research-heading">
+          <h2 id="research-heading">Research</h2>
+          <div className="entries">
+            {publications.map((paper) => (
+              <article className="entry solo" key={paper.name}>
+                <div>
+                  <h3>
+                    <EntryLink href={paper.link}>{paper.name}</EntryLink>
+                  </h3>
+                  <p className="desc">{paper.description}</p>
+                  <p className="meta">{paper.tags.join(" · ")}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="projects" aria-labelledby="projects-heading">
+          <h2 id="projects-heading">Projects</h2>
+          <div className="entries">
+            {projects.map((project) => (
+              <article className="entry solo" key={project.name}>
+                <div>
+                  <h3>
+                    <EntryLink href={project.link}>{project.name}</EntryLink>
+                  </h3>
+                  <p className="desc">{project.description}</p>
+                  <p className="meta">{project.tags.join(" · ")}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-heading">
+          <h2 id="contact-heading">Contact</h2>
+          <p className="contact-note">
+            For a research question, a class, or a project, write here or on LinkedIn.
+          </p>
+          <ul className="contact-links">
+            {socialLinks.map((link) => (
+              <li key={link.name}>
+                <a href={link.link} target="_blank" rel="noopener noreferrer">
+                  {link.name}
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <ContactForm />
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <div className="site-footer-inner">
+          <p>© {new Date().getFullYear()} Arnav Singh</p>
+        </div>
+      </footer>
+    </>
   );
 };
 

@@ -508,7 +508,7 @@ const LunarRover = () => {
                 {/* Actions Right */}
                 <div className="flex flex-col gap-3 pointer-events-auto items-end">
                     <MobileButton actionKey="c" label="CAM" className="w-12 h-12 rounded-full text-[10px] font-bold" roverRef={roverControlsRef} />
-                    <MobileButton actionKey="shift" label="BOOST" className="w-14 h-14 rounded-full text-xs font-bold bg-blue-600/40 border-blue-400/50" roverRef={roverControlsRef} />
+                    <MobileButton actionKey="shift" label="BOOST" className="w-14 h-14 rounded-full text-xs font-bold bg-[#e7a15a]/35 border-[#e7a15a]/70" roverRef={roverControlsRef} />
                 </div>
             </div>
 

@@ -8,10 +8,7 @@ export const portrait = {
 export const profile = {
     name: "Arnav Singh",
     role: "Physics and computer science, Dartmouth",
-    paragraphs: [
-        "I study physics, mathematics, and computer science at Dartmouth. I work on space-physics research, including telescope data and space-weather models, and on the software around that work.",
-        "I was born in Singapore, and grew up between Ireland and upstate New York.",
-    ],
+    lede: "I study physics, mathematics, and computer science at Dartmouth. I like the work that sits next to a measurement: telescope images, a space-weather model, and the programs in between.",
     quote: {
         text: "On two occasions I have been asked, ‘If you put into the machine wrong figures, will the right answers come out?’ I am not able rightly to apprehend the kind of confusion of ideas that could provoke such a question.",
         cite: "Charles Babbage",

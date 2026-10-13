@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ContactForm from "../components/ContactForm";
+import RoverDoor from "../components/RoverDoor";
+import Transit from "../components/Transit";
 import {
   education,
   experiences,
@@ -20,6 +22,12 @@ const NAV = [
   { id: "contact", label: "Contact" },
 ];
 
+const FIGURES = {
+  "Olympic Medal Prediction": { stat: "82%", note: "accuracy" },
+  Nuggets: { stat: "#1", note: "ranked" },
+  "AWS Cloud Security": { stat: "WAF · Shield · Cognito", note: "the stack", compact: true },
+};
+
 const isExternal = (href) => href.startsWith("http");
 
 const EntryLink = ({ href, children }) => {
@@ -37,6 +45,9 @@ const EntryLink = ({ href, children }) => {
 
 const Home = () => {
   const [active, setActive] = useState("study");
+  const [scrolled, setScrolled] = useState(false);
+  const rover = projects.find((project) => project.link === "/lunar-rover");
+  const otherProjects = projects.filter((project) => project !== rover);
 
   useEffect(() => {
     document.title = "Arnav Singh";
@@ -44,6 +55,13 @@ const Home = () => {
     if (!id) return;
     const target = document.getElementById(id);
     if (target) target.scrollIntoView();
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 140);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -55,7 +73,7 @@ const Home = () => {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
         if (visible[0]) setActive(visible[0].target.id);
       },
-      { rootMargin: "-30% 0px -55% 0px", threshold: [0.1, 0.25, 0.5] }
+      { rootMargin: "-30% 0px -50% 0px", threshold: [0.1, 0.25, 0.5] }
     );
 
     sections.forEach((section) => observer.observe(section));
@@ -69,12 +87,14 @@ const Home = () => {
       </a>
       <header className="site-header">
         <div className="header-inner">
-          <div className="brand">
-            <h1>
-              <a href="#top">Arnav Singh</a>
-            </h1>
-            <p className="brand-role">{profile.role}</p>
-          </div>
+          <a
+            href="#top"
+            className={scrolled ? "brand is-visible" : "brand"}
+            aria-hidden={scrolled ? undefined : true}
+            tabIndex={scrolled ? 0 : -1}
+          >
+            Arnav Singh
+          </a>
           <nav className="site-nav" aria-label="On this page">
             {NAV.map((item) => (
               <a
@@ -90,19 +110,31 @@ const Home = () => {
       </header>
 
       <main id="content" className="page">
-        <div id="top" className="intro">
-          <img className="portrait" src={portrait.src} alt={portrait.alt} width="400" height="400" />
-          <div>
-            {profile.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-            <blockquote className="epigraph">
-              <p>{profile.quote.text}</p>
-              <footer>
-                <cite>{profile.quote.cite}</cite>
-              </footer>
-            </blockquote>
+        <div className="opening" id="top">
+          <div className="hero">
+            <div className="hero-name">
+              <h1>Arnav Singh</h1>
+              <p className="role">{profile.role}</p>
+            </div>
+            <div className="hero-copy">
+              <p>{profile.lede}</p>
+              <p>
+                I was born in <em>Singapore</em>, and grew up between <em>Ireland</em> and{" "}
+                <em>upstate New York</em>. Three different skies. I still look up.
+              </p>
+            </div>
+            <figure className="hero-photo">
+              <img src={portrait.src} alt={portrait.alt} width="400" height="400" />
+              <figcaption>Outside a telescope dome.</figcaption>
+            </figure>
           </div>
+          <Transit />
+          <blockquote className="epigraph epigraph-after">
+            <p>{profile.quote.text}</p>
+            <footer>
+              <cite>{profile.quote.cite}</cite>
+            </footer>
+          </blockquote>
         </div>
 
         <section id="study" aria-labelledby="study-heading">
@@ -128,6 +160,9 @@ const Home = () => {
 
         <section id="work" aria-labelledby="work-heading">
           <h2 id="work-heading">Work</h2>
+          <p className="lead">
+            A console company, an observatory, a NASA lab, a few months of consulting, and a lot of office hours.
+          </p>
           <div className="entries">
             {experiences.map((item) => (
               <article className="entry" key={`${item.company}-${item.duration}`}>
@@ -144,6 +179,9 @@ const Home = () => {
 
         <section id="research" aria-labelledby="research-heading">
           <h2 id="research-heading">Research</h2>
+          <p className="lead">
+            Photometry of cataclysmic variable stars, and machine-learning models of Earth&apos;s magnetosphere.
+          </p>
           <div className="entries">
             {publications.map((paper) => (
               <article className="entry solo" key={paper.name}>
@@ -161,26 +199,32 @@ const Home = () => {
 
         <section id="projects" aria-labelledby="projects-heading">
           <h2 id="projects-heading">Projects</h2>
-          <div className="entries">
-            {projects.map((project) => (
-              <article className="entry solo" key={project.name}>
-                <div>
+          <RoverDoor />
+          <div className="pieces">
+            {otherProjects.map((project) => {
+              const figure = FIGURES[project.name];
+              return (
+                <article className="piece" key={project.name}>
+                  {figure && (
+                    <p className={figure.compact ? "stat stat-compact" : "stat"}>
+                      {figure.stat}
+                      <span>{figure.note}</span>
+                    </p>
+                  )}
                   <h3>
                     <EntryLink href={project.link}>{project.name}</EntryLink>
                   </h3>
                   <p className="desc">{project.description}</p>
                   <p className="meta">{project.tags.join(" · ")}</p>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         </section>
 
         <section id="contact" aria-labelledby="contact-heading">
           <h2 id="contact-heading">Contact</h2>
-          <p className="contact-note">
-            For a research question, a class, or a project, write here or on LinkedIn.
-          </p>
+          <p className="lead">For a research question, a class, or a project, write to me.</p>
           <ul className="contact-links">
             {socialLinks.map((link) => (
               <li key={link.name}>

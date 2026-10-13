@@ -1,6 +1,6 @@
 # Arnav Singh
 
-Personal site for Arnav Singh, a physics and computer science student at Dartmouth. The page is a single column: a short introduction, study, work, research, projects, and a contact form.
+Personal site for Arnav Singh, a physics and computer science student at Dartmouth. The opening is a short biography and a drawing of a planetary transit you can drag. Study, work, research, and projects follow. Lunar Rover Rescue is playable from the projects section.
 
 The lunar rover is a small browser game at `/lunar-rover`.
 

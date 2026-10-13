@@ -1,46 +1,27 @@
-import { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 
-import { Navbar, Footer, Cursor, PageLoader } from "./components";
-import {
-  Home,
-  About,
-  Experience,
-  Projects,
-  Contact,
-  Skills
-} from "./pages";
-
-const PlainView = lazy(() => import('./pages/PlainView'));
-const LunarRover = lazy(() => import('./pages/LunarRover'));
+const LunarRover = lazy(() => import("./pages/LunarRover"));
 
 const App = () => {
   return (
-    <main className='bg-black min-h-screen w-full overflow-x-hidden'>
-      <Cursor />
-      <Router>
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/plain" element={<PlainView />} />
-            <Route path="/lunar-rover" element={<LunarRover />} />
-            <Route path="/" element={
-              <>
-                <Navbar />
-                <div className="relative z-0">
-                  <Home /> {/* Hero Section with 3D Background */}
-                  <About />
-                  <Experience /> {/* Now includes Education */}
-                  <Projects /> {/* Now includes Research */}
-                  <Skills />
-                  <Contact />
-                  <Footer />
-                </div>
-              </>
-            } />
-          </Routes>
-        </Suspense>
-      </Router>
-    </main>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/plain" element={<Navigate to="/" replace />} />
+        <Route
+          path="/lunar-rover"
+          element={
+            <Suspense fallback={<main className="page not-found"><p>Loading the rover…</p></main>}>
+              <LunarRover />
+            </Suspense>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   );
 };
 

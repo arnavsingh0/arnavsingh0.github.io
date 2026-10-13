@@ -1,6 +1,7 @@
 import React, { Suspense, useRef, useState, useEffect, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Stars, Sparkles } from "@react-three/drei";
+import { Stars } from "@react-three/drei";
 import * as THREE from "three";
 
 // --- Reusable Geometries & Materials ---
@@ -406,10 +407,6 @@ const Rover = React.forwardRef(({ position, setHudData, roverPositionRef }, ref)
                 target-position={[0, 0, 10]}
             />
             {/* Removed the rear point light to save draw calls */}
-
-            <group position={[0, 0, -2]}>
-                <Sparkles count={30} scale={3} size={10} speed={0.4} opacity={0.2} color="#a09a8a" />
-            </group>
         </group>
     );
 });
@@ -417,6 +414,14 @@ Rover.displayName = "Rover";
 
 // --- Main Scene ---
 const LunarRover = () => {
+    useEffect(() => {
+        const previousTitle = document.title;
+        document.title = "Lunar rover — Arnav Singh";
+        return () => {
+            document.title = previousTitle;
+        };
+    }, []);
+
     const [hudData, setHudData] = useState({ speed: "0.0", battery: "100", camera: "EXT", boosting: false });
     const [score, setScore] = useState(0);
     const roverPositionRef = useRef(new THREE.Vector3(0, 0, 0));
@@ -427,60 +432,50 @@ const LunarRover = () => {
     };
 
     return (
-        <div className="w-full h-screen relative bg-black overflow-hidden">
-            {/* UI Overlay */}
-            <div className="absolute top-0 left-0 w-full p-4 sm:p-10 z-10 pointer-events-none flex flex-col sm:flex-row justify-between items-start gap-2 sm:gap-4">
-                <div>
-                    <h1 className="text-lg sm:text-3xl font-bold font-mono text-blue-400 tracking-widest drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
-                        VANGUARD OS // LUNAR_ROVER_SIM
+        <div className="rover-page w-full h-screen relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full p-3 sm:p-6 z-10 pointer-events-none flex flex-col sm:flex-row justify-between items-start gap-2 sm:gap-4">
+                <div className="pointer-events-auto">
+                    <h1 className="text-lg sm:text-2xl font-medium text-[#f4f1ea]">
+                        Lunar rover
                     </h1>
-                    <div className="hidden sm:block text-gray-300 font-mono text-xs sm:text-sm mt-3 bg-black/60 p-3 sm:p-4 rounded border border-blue-500/30 backdrop-blur-md max-w-[80vw] sm:max-w-sm pointer-events-auto">
-                        <span className="text-blue-400 mb-1 sm:mb-2 block font-bold border-b border-blue-500/30 pb-1">MISSION DIRECTIVE:</span>
-                        Navigate the lunar surface. Collect anomalous energy crystals.<br /><br />
-                        <span className="text-blue-400 block border-b border-blue-500/30 pb-1 mt-1 sm:mt-2 mb-1 sm:mb-2">CONTROLS:</span>
-                        <div>
-                            [W] Accelerate | [S] Brake/Rev<br />
-                            [A/D] Steer | [Shift] Boost<br />
-                            [C] Toggle Camera
-                        </div>
+                    <Link to="/#projects" className="inline-block mt-1 text-sm underline underline-offset-4">
+                        Back
+                    </Link>
+                    <p className="sm:hidden mt-2 text-xs text-[#d9d4c8] max-w-[16rem]">
+                        Use the buttons to drive, and collect the crystals.
+                    </p>
+                    <div className="hidden sm:block text-sm mt-3 rover-hud-panel p-3 max-w-sm leading-relaxed">
+                        <p>Drive across the terrain and collect the crystals.</p>
+                        <p className="mt-2 text-[#d9d4c8]">
+                            W accelerate, S brake, A and D steer, Shift boost, C camera.
+                        </p>
                     </div>
                 </div>
-                <div className="text-left flex flex-col items-start sm:items-end sm:text-right bg-black/60 p-3 sm:p-5 rounded border border-blue-500/30 backdrop-blur-md w-[80vw] sm:w-64 max-w-[200px] sm:max-w-none pointer-events-auto mt-1 sm:mt-0">
-                    <p className="text-green-400 font-mono text-[10px] sm:text-sm tracking-wider flex items-center justify-start sm:justify-end gap-1.5 sm:gap-2 mb-1.5 sm:mb-3">
-                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        SYSTEM ONLINE
-                    </p>
-
-                    <div className="space-y-1 sm:space-y-2 mt-1 sm:mt-4 w-full">
-                        <div className="flex justify-between text-[10px] sm:text-xs font-mono text-blue-300">
-                            <span>VELOCITY:</span>
-                            <span className={parseFloat(hudData.speed) > 20 ? "text-yellow-400" : ""}>{hudData.speed} m/s</span>
+                <div className="rover-hud-panel p-3 sm:p-4 w-[11rem] sm:w-56 pointer-events-auto text-sm">
+                    <div className="space-y-2 font-mono text-xs sm:text-sm">
+                        <div className="flex justify-between gap-3">
+                            <span>Speed</span>
+                            <span className={parseFloat(hudData.speed) > 20 ? "text-yellow-300" : ""}>{hudData.speed} m/s</span>
                         </div>
-
-                        <div className="flex justify-between text-[10px] sm:text-xs font-mono text-blue-300 items-center">
-                            <span>POWER:</span>
-                            <div className="w-16 sm:w-24 h-1.5 sm:h-2 bg-gray-800 rounded overflow-hidden shadow-[inset_0_0_5px_rgba(0,0,0,0.5)]">
+                        <div className="flex justify-between gap-3 items-center">
+                            <span>Power</span>
+                            <div className="w-16 sm:w-24 h-1.5 bg-black/60 overflow-hidden" aria-hidden="true">
                                 <div
-                                    className={`h-full flex-none ${parseFloat(hudData.battery) > 20 ? (hudData.boosting ? 'bg-yellow-400' : 'bg-blue-500') : 'bg-red-500 animate-pulse'}`}
-                                    style={{ width: `${hudData.battery}%`, transition: 'width 0.1s linear' }}
+                                    className={`h-full ${parseFloat(hudData.battery) > 20 ? (hudData.boosting ? "bg-yellow-300" : "bg-[#f4f1ea]") : "bg-red-400"}`}
+                                    style={{ width: `${hudData.battery}%` }}
                                 ></div>
                             </div>
+                            <span className="sr-only">{hudData.battery}% power</span>
                         </div>
-
-                        <div className="flex justify-between text-[10px] sm:text-xs font-mono text-blue-300 mt-1 sm:mt-2">
-                            <span>CAM MODE:</span>
-                            <span className="text-green-400">[{hudData.camera}]</span>
+                        <div className="flex justify-between gap-3">
+                            <span>Camera</span>
+                            <span>{hudData.camera}</span>
                         </div>
-
-                        <div className="flex justify-between text-[10px] sm:text-xs font-mono text-blue-300 pt-1 sm:pt-2 border-t border-blue-500/30 mt-1 sm:mt-2">
-                            <span>ANOMALIES:</span>
-                            <span className="text-cyan-400 font-bold text-[10px] sm:text-sm">{score}</span>
+                        <div className="flex justify-between gap-3 border-t border-white/15 pt-2">
+                            <span>Collected</span>
+                            <span>{score}</span>
                         </div>
                     </div>
-
-                    <a href="/#projects" className="pointer-events-auto mt-3 sm:mt-6 w-full block text-center px-4 sm:px-6 py-1.5 sm:py-2 border border-red-500/50 bg-red-500/10 text-red-400 font-mono text-[10px] sm:text-sm hover:bg-red-500/30 hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all">
-                        [ ABORT MISSION ]
-                    </a>
                 </div>
             </div>
 
@@ -513,7 +508,7 @@ const LunarRover = () => {
                 {/* Actions Right */}
                 <div className="flex flex-col gap-3 pointer-events-auto items-end">
                     <MobileButton actionKey="c" label="CAM" className="w-12 h-12 rounded-full text-[10px] font-bold" roverRef={roverControlsRef} />
-                    <MobileButton actionKey="shift" label="BOOST" className="w-14 h-14 rounded-full text-xs font-bold bg-blue-600/40 border-blue-400/50" roverRef={roverControlsRef} />
+                    <MobileButton actionKey="shift" label="BOOST" className="w-14 h-14 rounded-full text-xs font-bold bg-[#e7a15a]/35 border-[#e7a15a]/70" roverRef={roverControlsRef} />
                 </div>
             </div>
 

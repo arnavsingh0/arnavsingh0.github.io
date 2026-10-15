@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /sharanyabirthday21
 
 Sitemap: https://arnavsingh0.github.io/sitemap.xml
